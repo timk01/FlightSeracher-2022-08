@@ -1,4 +1,4 @@
-package ru.otus.flightsearch.bot.config;
+package ru.otus.flightsearch.config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;

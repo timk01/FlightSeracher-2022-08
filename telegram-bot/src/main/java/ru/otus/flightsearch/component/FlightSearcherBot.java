@@ -1,4 +1,4 @@
-package ru.otus.flightsearch.bot.component;
+package ru.otus.flightsearch.component;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -6,7 +6,7 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.otus.flightsearch.bot.config.BotConfig;
+import ru.otus.flightsearch.config.BotConfig;
 
 @Slf4j
 @Component
