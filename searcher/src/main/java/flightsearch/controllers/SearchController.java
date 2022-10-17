@@ -1,14 +1,14 @@
-package ru.otus.flightsearch.controllers;
+package flightsearch.controllers;
 
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ru.otus.flightsearch.dtos.SearchResultDto;
+import flightsearch.dtos.SearchResultDto;
 
 import java.util.List;
 
-@RequestMapping("api/search")
+@RequestMapping
 @RestController
 public class SearchController {
     @PostMapping
