@@ -8,7 +8,7 @@ import flightsearch.dtos.SearchResultDto;
 
 import java.util.List;
 
-@RequestMapping
+@RequestMapping("api/search")
 @RestController
 public class SearchController {
     @PostMapping
