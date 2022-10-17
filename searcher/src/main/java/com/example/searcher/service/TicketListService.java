@@ -1,11 +1,12 @@
 package com.example.searcher.service;
 
-import com.example.searcher.model.Data;
-import com.example.searcher.model.Data2;
+import com.example.searcher.model.Ticket;
+import flightsearch.dtos.SearchResultDto;
+import flightsearch.dtos.SearchResultDtoList;
 
 import java.util.List;
 
 public interface TicketListService {
-    Data2 getTicketList();
-    List<Data> getTicketListRoughImpl();
+    SearchResultDtoList getDtoTicketList();
+    List<Ticket> getTicketListRoughImpl();
 }

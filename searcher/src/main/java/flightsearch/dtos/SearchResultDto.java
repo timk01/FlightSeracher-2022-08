@@ -1,18 +1,23 @@
 package flightsearch.dtos;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@Data
+@Setter
+@Getter
 @AllArgsConstructor
+@Builder
 public class SearchResultDto {
-    String departCity;
-    String departAirPort;
-    String arriveCity;
-    String arriveAirPort;
-    String airCompany;
-    float price;
-    LocalDateTime localDateTime;
+    private String departCity; //origin
+    private String arriveCity; //destination
+    private String site; //gate
+    private float price; //value
+    private LocalDate localDateTime; //found_at
+    private LocalDate departDate;
+    private LocalDate returnDate;
+    private int numberOfChanges;
+    private long duration;
+    private long distance;
 }

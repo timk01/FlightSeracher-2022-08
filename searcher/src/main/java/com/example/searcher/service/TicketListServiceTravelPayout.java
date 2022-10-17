@@ -1,7 +1,10 @@
 package com.example.searcher.service;
 
-import com.example.searcher.model.Data;
-import com.example.searcher.model.Data2;
+import com.example.searcher.converter.TicketSearchResultToSearchRsultDTOConverter;
+import com.example.searcher.model.Ticket;
+import com.example.searcher.model.TicketSearchResult;
+import flightsearch.dtos.SearchResultDto;
+import flightsearch.dtos.SearchResultDtoList;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -10,9 +13,10 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 @Service
-public class TicketListServiceImpl implements TicketListService{
+public class TicketListServiceTravelPayout implements TicketListService{
 
     @Autowired
     RestTemplate restTemplate;
@@ -30,18 +34,14 @@ public class TicketListServiceImpl implements TicketListService{
             .addParameter("page", "1")
             .addParameter("token", Token.secretToken);
 
-/*
-    final String ROOT_URI = "https://api.travelpayouts.com/v2/prices/latest?origin=MOW&destination=LON&one_way=true&sorting=price&trip_class=0&currency=rub&limit=30&page=1&token=fc51222b5efbb95d3343a569c47f6c84";
-*/
-
     @Override
-    public Data2 getTicketList() {
-        ResponseEntity<Data2> response = restTemplate.getForEntity(builder.toString(), Data2.class);
-        return response.getBody();
+    public SearchResultDtoList getDtoTicketList() {
+        ResponseEntity<TicketSearchResult> response = restTemplate.getForEntity(builder.toString(), TicketSearchResult.class);
+        return TicketSearchResultToSearchRsultDTOConverter.convert(Objects.requireNonNull(response.getBody()));
     }
 
     @Override
-    public List<Data> getTicketListRoughImpl() {
+    public List<Ticket> getTicketListRoughImpl() {
 
         /*ObjectMapper mapper = new ObjectMapper();
         mapper.configure(DeserializationFeature.ACCEPT_SINGLE_VALUE_AS_ARRAY, true);
@@ -52,8 +52,8 @@ public class TicketListServiceImpl implements TicketListService{
                         });
         return rateResponse.getBody();*/
 
-        ResponseEntity<Data[]> response = restTemplate.getForEntity(builder.toString(), Data[].class);
-        Data[] body = response.getBody();
+        ResponseEntity<Ticket[]> response = restTemplate.getForEntity(builder.toString(), Ticket[].class);
+        Ticket[] body = response.getBody();
         return Arrays.asList(body);
     }
 

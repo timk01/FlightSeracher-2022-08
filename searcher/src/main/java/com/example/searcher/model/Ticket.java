@@ -1,18 +1,29 @@
 package com.example.searcher.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateDeserializer;
+import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
+import lombok.Data;
+
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-@lombok.Data
-public class Data {
+@Data
+public class Ticket {
     private long value;
     private String trip_class;
     private String origin;
     private String destination;
     private String gate;
-    private String depart_date;
-    private String return_date;
+
+    //@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate depart_date;
+
+    //@JsonDeserialize(using = LocalDateDeserializer.class)
+    private LocalDate return_date;
+
     private int number_of_changes;
-    private LocalDateTime found_at;
+    private LocalDate found_at;
     private long duration;
     private long distance;
 
