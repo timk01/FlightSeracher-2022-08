@@ -1,4 +1,4 @@
-package ru.otus.flightsearch.dtos;
+package flightsearch.dtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
