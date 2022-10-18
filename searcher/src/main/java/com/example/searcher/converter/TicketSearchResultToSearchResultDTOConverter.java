@@ -2,17 +2,14 @@ package com.example.searcher.converter;
 
 import com.example.searcher.model.Ticket;
 import com.example.searcher.model.TicketSearchResult;
-import flightsearch.dtos.SearchResultDto;
-import flightsearch.dtos.SearchResultDtoList;
+import com.example.searcher.dtos.SearchResultDto;
+import com.example.searcher.dtos.SearchResultDtoList;
 import lombok.experimental.UtilityClass;
-import org.springframework.stereotype.Component;
 
-import java.time.LocalDateTime;
 import java.util.*;
 
-//@Component
 @UtilityClass
-public class TicketSearchResultToSearchRsultDTOConverter {
+public class TicketSearchResultToSearchResultDTOConverter {
     public SearchResultDtoList convert(TicketSearchResult result) {
         List<SearchResultDto> searchResultDtoList = new ArrayList<>();
         for (Ticket actualTicket : result.getData()) {
@@ -22,10 +19,10 @@ public class TicketSearchResultToSearchRsultDTOConverter {
                     .arriveCity(actualTicket.getDestination())
                     .site(actualTicket.getGate())
                     .price(actualTicket.getValue())
-                    .localDateTime(actualTicket.getFound_at())
-                    .departDate(actualTicket.getDepart_date())
-                    .returnDate(actualTicket.getReturn_date())
-                    .numberOfChanges(actualTicket.getNumber_of_changes())
+                    .localDateTime(actualTicket.getFoundAt())
+                    .departDate(actualTicket.getDepartDate())
+                    .returnDate(actualTicket.getReturnDate())
+                    .numberOfChanges(actualTicket.getNumberOfChanges())
                     .duration(actualTicket.getDuration())
                     .distance(actualTicket.getDistance())
                     .build();

@@ -1,4 +1,4 @@
-package flightsearch.dtos;
+package com.example.searcher.dtos;
 
 import lombok.*;
 

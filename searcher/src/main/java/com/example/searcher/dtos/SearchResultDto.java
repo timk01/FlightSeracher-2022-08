@@ -1,4 +1,4 @@
-package flightsearch.dtos;
+package com.example.searcher.dtos;
 
 import lombok.*;
 
@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Builder
 public class SearchResultDto {
-    private String departCity; //origin
-    private String arriveCity; //destination
-    private String site; //gate
-    private float price; //value
-    private LocalDate localDateTime; //found_at
+    private String departCity;
+    private String arriveCity;
+    private String site;
+    private float price;
+    private LocalDate localDateTime;
     private LocalDate departDate;
     private LocalDate returnDate;
     private int numberOfChanges;
