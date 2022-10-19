@@ -24,11 +24,16 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
             TicketRequest ticketRequest = TicketRequest.ofText(update.getMessage().getText());
             String messageText;
             if (ticketRequest.getError() == null) {
-                messageText = "Вы ищете билет из " + ticketRequest.getOrigin() + " в " + ticketRequest.getDestination() + " на " + ticketRequest.getDate();
+                messageText = "Вы ищете билет из "
+                        + ticketRequest.getOrigin()
+                        + " в "
+                        + ticketRequest.getDestination()
+                        + " на "
+                        + TicketRequest.formatter.format(ticketRequest.getDate().getTime());
             } else {
-                messageText = "Проверьте корректность введенной даты";
+                messageText = ticketRequest.getError();
             }
-                long chatId = update.getMessage().getChatId();
+            long chatId = update.getMessage().getChatId();
             sendMessage(chatId, messageText);
         }
     }
