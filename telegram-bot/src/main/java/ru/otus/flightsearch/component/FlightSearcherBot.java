@@ -7,6 +7,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.otus.flightsearch.config.BotConfig;
+import ru.otus.flightsearch.model.TicketRequest;
 
 @Slf4j
 @Component
@@ -20,11 +21,26 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
-            String messageText = update.getMessage().getText();
+            TicketRequest ticketRequest = null;
+            String messageText;
+            try {
+                ticketRequest = TicketRequest.ofText(update.getMessage().getText());
+                messageText = "Вы ищете билет из "
+                        + ticketRequest.getOrigin()
+                        + " в "
+                        + ticketRequest.getDestination()
+                        + " на "
+                        + TicketRequest.formatter.format(ticketRequest.getDate().getTime());
+            } catch (IllegalArgumentException e) {
+                messageText = "You entered a wrong date";
+            } catch (Exception e) {
+                messageText = e.getMessage();
+            }
             long chatId = update.getMessage().getChatId();
             sendMessage(chatId, messageText);
         }
     }
+
 
     private void sendMessage(long chatId, String textToSend) {
         SendMessage message = new SendMessage();
@@ -40,7 +56,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return config.getBotName();
+        return config.getName();
     }
 
     @Override
