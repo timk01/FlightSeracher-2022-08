@@ -31,6 +31,8 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
                         + ticketRequest.getDestination()
                         + " на "
                         + TicketRequest.formatter.format(ticketRequest.getDate().getTime());
+            } catch (IllegalArgumentException e) {
+                messageText = "You entered a wrong date";
             } catch (Exception e) {
                 messageText = e.getMessage();
             }
@@ -38,6 +40,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
             sendMessage(chatId, messageText);
         }
     }
+
 
     private void sendMessage(long chatId, String textToSend) {
         SendMessage message = new SendMessage();

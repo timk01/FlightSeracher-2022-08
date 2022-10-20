@@ -79,7 +79,7 @@ public class TicketRequest {
     private static void validateDate(Calendar calendarEntered) {
         Calendar calendarNow = Calendar.getInstance();
         calendarNow.add(Calendar.DAY_OF_MONTH, -1);
-        if (calendarNow.compareTo(calendarEntered) == 1) {
+        if (calendarNow.compareTo(calendarEntered) > 0) {
             throw new IllegalArgumentException("The date must be today or in future");
         }
     }
