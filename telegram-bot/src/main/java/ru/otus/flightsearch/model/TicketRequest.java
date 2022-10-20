@@ -7,7 +7,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoField;
-import java.util.*;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Locale;
+import java.util.Set;
 
 @Data
 @Slf4j
@@ -17,7 +20,6 @@ public class TicketRequest {
     private final String origin;
     private final String destination;
     private final Calendar date;
-    private final String error;
 
     private static Set<String> citiesSet = new HashSet<>() {{
         add("уфа");
@@ -26,26 +28,20 @@ public class TicketRequest {
         add("москва");
         add("екатеринбург");
         add("самара");
-        add("ижевск");
-        add("стерлитамак");
         add("нью-йорк");
-        add("нижний новгород");
-        add("учалы");
         add("дубай");
     }};
 
-    public static TicketRequest ofText(String text) {
+    public static TicketRequest ofText(String text) throws ParseException {
         final String[] paramsArray = text.split(" ");
         final Calendar paramDate;
-        try {
-            validateCity(paramsArray[0]);
-            validateCity(paramsArray[1]);
-            paramDate = parseDate(paramsArray[2], paramsArray[3], paramsArray.length > 4 ? paramsArray[4] : null);
-            validateDate(paramDate);
-        } catch (ParseException | IllegalArgumentException e) {
-            return new TicketRequest(null, null, null, e.getMessage());
-        }
-        return new TicketRequest(paramsArray[0], paramsArray[1], paramDate, null);
+
+        validateCity(paramsArray[0]);
+        validateCity(paramsArray[1]);
+        paramDate = parseDate(paramsArray[2], paramsArray[3], paramsArray.length > 4 ? paramsArray[4] : null);
+        validateDate(paramDate);
+
+        return new TicketRequest(paramsArray[0], paramsArray[1], paramDate);
     }
 
     private static Calendar parseDate(String day, String month, String year) throws ParseException {
@@ -81,7 +77,9 @@ public class TicketRequest {
     }
 
     private static void validateDate(Calendar calendarEntered) {
-        if (Calendar.getInstance().compareTo(calendarEntered) == 1) {
+        Calendar calendarNow = Calendar.getInstance();
+        calendarNow.add(Calendar.DAY_OF_MONTH, -1);
+        if (calendarNow.compareTo(calendarEntered) == 1) {
             throw new IllegalArgumentException("The date must be today or in future");
         }
     }
@@ -90,4 +88,6 @@ public class TicketRequest {
         DateTimeFormatter monthFormat = DateTimeFormatter.ofPattern("MMMM", new Locale("ru"));
         return monthFormat.parse(month).get(ChronoField.MONTH_OF_YEAR) - 1;
     }
+
+
 }

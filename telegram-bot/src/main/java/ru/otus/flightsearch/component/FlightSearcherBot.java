@@ -21,17 +21,18 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
-            TicketRequest ticketRequest = TicketRequest.ofText(update.getMessage().getText());
+            TicketRequest ticketRequest = null;
             String messageText;
-            if (ticketRequest.getError() == null) {
+            try {
+                ticketRequest = TicketRequest.ofText(update.getMessage().getText());
                 messageText = "Вы ищете билет из "
                         + ticketRequest.getOrigin()
                         + " в "
                         + ticketRequest.getDestination()
                         + " на "
                         + TicketRequest.formatter.format(ticketRequest.getDate().getTime());
-            } else {
-                messageText = ticketRequest.getError();
+            } catch (Exception e) {
+                messageText = e.getMessage();
             }
             long chatId = update.getMessage().getChatId();
             sendMessage(chatId, messageText);
@@ -52,7 +53,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotUsername() {
-        return config.getBotName();
+        return config.getName();
     }
 
     @Override
