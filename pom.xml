@@ -1,60 +1,70 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xmlns="http://maven.apache.org/POM/4.0.0"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <artifactId>flight-search</artifactId>
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <artifactId>flight-search</artifactId>
 
-  <build>
-    <plugins>
-      <plugin>
-        <artifactId>spring-boot-maven-plugin</artifactId>
-        <configuration>
-          <excludes>
-            <exclude>
-              <artifactId>lombok</artifactId>
-              <groupId>org.projectlombok</groupId>
-            </exclude>
-          </excludes>
-        </configuration>
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <excludes>
+                        <exclude>
+                            <artifactId>lombok</artifactId>
+                            <groupId>org.projectlombok</groupId>
+                        </exclude>
+                    </excludes>
+                </configuration>
+                <groupId>org.springframework.boot</groupId>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+            </plugin>
+        </plugins>
+    </build>
+
+    <dependencies>
+        <dependency>
+            <artifactId>lombok</artifactId>
+            <groupId>org.projectlombok</groupId>
+            <optional>true</optional>
+        </dependency>
+
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.fasterxml.jackson.datatype</groupId>
+                <artifactId>jackson-datatype-jsr310</artifactId>
+                <version>2.13.4</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <modelVersion>4.0.0</modelVersion>
+    <modules>
+        <module>telegram-bot</module>
+        <module>buyer</module>
+        <module>searcher</module>
+    </modules>
+
+    <packaging>pom</packaging>
+
+    <parent>
+        <artifactId>spring-boot-starter-parent</artifactId>
         <groupId>org.springframework.boot</groupId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-surefire-plugin</artifactId>
-        <version>2.22.2</version>
-      </plugin>
-    </plugins>
-  </build>
+        <relativePath/>
+        <version>2.7.4</version> <!-- lookup parent from repository -->
+    </parent>
+    <properties>
+        <description>Flight Searcher Service</description>
+        <groupId>ru.otus.flightsearch</groupId>
+        <java.version>17</java.version>
 
-  <dependencies>
-    <dependency>
-      <artifactId>lombok</artifactId>
-      <groupId>org.projectlombok</groupId>
-      <optional>true</optional>
-    </dependency>
+    </properties>
 
-  </dependencies>
-
-  <modelVersion>4.0.0</modelVersion>
-  <modules>
-    <module>telegram-bot</module>
-    <module>buyer</module>
-    <module>searcher</module>
-  </modules>
-
-  <packaging>pom</packaging>
-
-  <parent>
-    <artifactId>spring-boot-starter-parent</artifactId>
-    <groupId>org.springframework.boot</groupId>
-    <relativePath/>
-    <version>2.7.4</version> <!-- lookup parent from repository -->
-  </parent>
-  <properties>
-    <description>Flight Searcher Service</description>
-    <groupId>ru.otus.flightsearch</groupId>
-    <java.version>17</java.version>
-
-  </properties>
-
-  <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
 </project>
