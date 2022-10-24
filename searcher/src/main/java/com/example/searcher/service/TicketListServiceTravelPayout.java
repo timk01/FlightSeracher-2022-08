@@ -20,6 +20,7 @@ public class TicketListServiceTravelPayout implements TicketListService {
 
     @Autowired
     public TicketListServiceTravelPayout(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties) {
+
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("https")
@@ -42,6 +43,10 @@ public class TicketListServiceTravelPayout implements TicketListService {
                         builder.toString(),
                         TicketSearchResult.class
                 );
-        return TicketSearchResultToSearchResultDTOConverter.convert(Objects.requireNonNull(response.getBody()));
+
+        return TicketSearchResultToSearchResultDTOConverter
+                .convert(Objects
+                        .requireNonNull(response
+                                .getBody()));
     }
 }

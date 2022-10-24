@@ -10,9 +10,13 @@ import java.util.*;
 
 @UtilityClass
 public class TicketSearchResultToSearchResultDTOConverter {
+
     public SearchResultDtoList convert(TicketSearchResult result) {
+
         List<SearchResultDto> searchResultDtoList = new ArrayList<>();
+
         for (Ticket actualTicket : result.getData()) {
+
             SearchResultDto resultDto = SearchResultDto
                     .builder()
                     .departCity(actualTicket.getOrigin())
@@ -28,6 +32,7 @@ public class TicketSearchResultToSearchResultDTOConverter {
                     .build();
             searchResultDtoList.add(resultDto);
         }
+
         return new SearchResultDtoList(searchResultDtoList);
     }
 }

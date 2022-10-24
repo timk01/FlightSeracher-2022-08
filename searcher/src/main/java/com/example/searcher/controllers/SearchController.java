@@ -18,6 +18,7 @@ public class SearchController {
 
     @PostMapping
     public SearchResultDtoList search(@RequestBody SearchRequestDto dto){
+
         return ticketListService.getDtoTicketList(dto);
     }
 
