@@ -22,6 +22,7 @@ public class TicketListServiceTravelPayout implements TicketListService {
     public TicketListServiceTravelPayout(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties) {
         this.restTemplate = restTemplate;
         this.travelPayoutProperties = travelPayoutProperties;
+
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
@@ -38,7 +39,9 @@ public class TicketListServiceTravelPayout implements TicketListService {
 
     @Override
     public SearchResultDtoList getDtoTicketList() {
-        ResponseEntity<TicketSearchResult> response = restTemplate.getForEntity(builder.toString(), TicketSearchResult.class);
+        ResponseEntity<TicketSearchResult> response = restTemplate.getForEntity(
+                builder.toString()
+                , TicketSearchResult.class);
         return TicketSearchResultToSearchResultDTOConverter.convert(Objects.requireNonNull(response.getBody()));
     }
 }
