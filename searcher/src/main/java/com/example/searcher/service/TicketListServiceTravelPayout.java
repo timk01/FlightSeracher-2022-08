@@ -38,7 +38,9 @@ public class TicketListServiceTravelPayout implements TicketListService {
 
     @Override
     public SearchResultDtoList getDtoTicketList() {
-        ResponseEntity<TicketSearchResult> response = restTemplate.getForEntity(builder.toString(), TicketSearchResult.class);
+        ResponseEntity<TicketSearchResult> response = restTemplate.getForEntity(
+                builder.toString(),
+                TicketSearchResult.class);
         return TicketSearchResultToSearchResultDTOConverter.convert(Objects.requireNonNull(response.getBody()));
     }
 }
