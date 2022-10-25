@@ -1,4 +1,4 @@
-package com.example.searcher.dtos;
+package common_dto;
 
 import lombok.*;
 
@@ -8,6 +8,7 @@ import java.util.List;
 @Getter
 @AllArgsConstructor
 @Builder
+@NoArgsConstructor
 public class SearchResultDtoList {
     private List<SearchResultDto> searchResultDtoList;
 }

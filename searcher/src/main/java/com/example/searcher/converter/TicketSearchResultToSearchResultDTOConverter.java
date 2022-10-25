@@ -2,8 +2,8 @@ package com.example.searcher.converter;
 
 import com.example.searcher.model.Ticket;
 import com.example.searcher.model.TicketSearchResult;
-import com.example.searcher.dtos.SearchResultDto;
-import com.example.searcher.dtos.SearchResultDtoList;
+import common_dto.SearchResultDto;
+import common_dto.SearchResultDtoList;
 import lombok.experimental.UtilityClass;
 
 import java.util.*;
@@ -19,7 +19,7 @@ public class TicketSearchResultToSearchResultDTOConverter {
                     .arriveCity(actualTicket.getDestination())
                     .site(actualTicket.getGate())
                     .price(actualTicket.getValue())
-                    .localDateTime(actualTicket.getFoundAt())
+                    //.localDate(actualTicket.getFoundAt())
                     .departDate(actualTicket.getDepartDate())
                     .returnDate(actualTicket.getReturnDate())
                     .numberOfChanges(actualTicket.getNumberOfChanges())

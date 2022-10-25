@@ -2,7 +2,8 @@ package com.example.searcher.service;
 
 import com.example.searcher.converter.TicketSearchResultToSearchResultDTOConverter;
 import com.example.searcher.model.TicketSearchResult;
-import com.example.searcher.dtos.SearchResultDtoList;
+import common_dto.SearchRequestDto;
+import common_dto.SearchResultDtoList;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -15,13 +16,11 @@ import java.util.Objects;
 public class TicketListServiceTravelPayout implements TicketListService {
 
     private final RestTemplate restTemplate;
-    private final TravelPayoutProperties travelPayoutProperties;
     private final URIBuilder builder;
 
     @Autowired
     public TicketListServiceTravelPayout(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties) {
         this.restTemplate = restTemplate;
-        this.travelPayoutProperties = travelPayoutProperties;
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
@@ -37,10 +36,12 @@ public class TicketListServiceTravelPayout implements TicketListService {
     }
 
     @Override
-    public SearchResultDtoList getDtoTicketList() {
-        ResponseEntity<TicketSearchResult> response = restTemplate.getForEntity(
-                builder.toString(),
-                TicketSearchResult.class);
+    public SearchResultDtoList getDtoTicketList(SearchRequestDto dto) {
+        ResponseEntity<TicketSearchResult> response = restTemplate
+                .getForEntity(
+                        builder.toString(),
+                        TicketSearchResult.class
+                );
         return TicketSearchResultToSearchResultDTOConverter.convert(Objects.requireNonNull(response.getBody()));
     }
 }
