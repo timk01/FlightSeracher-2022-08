@@ -1,4 +1,4 @@
-package ru.otus.flightsearch.config;
+package ru.otus.flightsearch.configuration;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.event.ContextRefreshedEvent;

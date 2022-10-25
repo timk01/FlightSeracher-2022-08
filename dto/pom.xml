@@ -9,10 +9,13 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>searcher</artifactId>
+    <artifactId>dto</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
 
-    <name>searcher</name>
-    <description>searcher</description>
+    <name>dto</name>
+    <description>dto</description>
+
+    <packaging>jar</packaging>
 
     <dependencies>
         <dependency>
@@ -79,11 +82,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-configuration-processor</artifactId>
             <optional>true</optional>
-        </dependency>
-        <dependency>
-            <groupId>ru.otus.flightsearch</groupId>
-            <artifactId>dto</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 

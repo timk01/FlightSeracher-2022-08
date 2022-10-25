@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 @JsonNaming(PropertyNamingStrategies.SnakeCaseStrategy.class)
@@ -18,7 +19,7 @@ public class Ticket {
     private LocalDate departDate;
     private LocalDate returnDate;
     private int numberOfChanges;
-    private LocalDate foundAt;
+    //private LocalDateTime foundAt;
     private long duration;
     private long distance;
 }

@@ -1,15 +1,16 @@
 package com.example.searcher.service;
 
-import com.example.searcher.dtos.SearchResultDtoList;
+import common_dto.SearchRequestDto;
+import common_dto.SearchResultDtoList;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static org.junit.jupiter.api.Assertions.*;
+import java.time.LocalDateTime;
+
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 
 @SpringBootTest(webEnvironment = RANDOM_PORT)
@@ -19,8 +20,16 @@ class TicketListServiceTravelPayoutTest {
     @Autowired
     private TicketListServiceTravelPayout ticketListServiceTravelPayout;
 
+    private SearchRequestDto dto;
+
     @BeforeEach
     void before() {
+       /*dto = SearchRequestDto
+                .builder()
+                .origin("MOS")
+                .destination("LON")
+                .date(LocalDateTime.now())
+                .build();*/
         //todo read file (test) return string
         //string --> SearchResultDtoList (Objmapper)
         //save to SearchResultDtoList (as field in test class)
@@ -28,9 +37,19 @@ class TicketListServiceTravelPayoutTest {
 
     @Test
     void getDtoTicketList() {
-        SearchResultDtoList actualTicketList = ticketListServiceTravelPayout.getDtoTicketList();
+        SearchResultDtoList actualTicketList = ticketListServiceTravelPayout
+                .getDtoTicketList(dto);
 
         Assertions.assertNotNull(actualTicketList);
         //Assertions.assertEquals(); //look: before, actualTicketList
     }
+
+/*    @Test
+    void getDtoTicketList(SearchRequestDto dto) {
+        SearchResultDtoList actualTicketList = ticketListServiceTravelPayout
+                .getDtoTicketList(dto);
+
+        Assertions.assertNotNull(actualTicketList);
+        //Assertions.assertEquals(); //look: before, actualTicketList
+    }*/
 }
