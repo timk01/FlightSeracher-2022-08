@@ -21,6 +21,7 @@ import ru.otus.flightsearch.service.BotSearchService;
 public class FlightSearcherBot extends TelegramLongPollingBot {
     private final BotConfig config;
     private final BotSearchService botSearchService;
+    private final ObjectMapper objectMapper;
 
     @Override
     //@SneakyThrows
@@ -35,7 +36,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
             } catch (Exception e) {
                 messageText = e.getMessage();
             }
-            ObjectMapper objectMapper = new ObjectMapper();
+
             long chatId = update.getMessage().getChatId();
             try {
                 sendMessage(chatId,
