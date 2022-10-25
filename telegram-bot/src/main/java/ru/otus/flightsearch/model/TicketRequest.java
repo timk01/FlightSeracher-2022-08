@@ -33,7 +33,7 @@ public class TicketRequest {
         add("дубай");
     }};
 
-    public static TicketRequest ofText(String text) throws ParseException {
+    public static TicketRequest ofText(String text) throws ParseException {  // метод принимает строку и отдает TicketRequest
         final String[] paramsArray = text.split(" ");
 
         validateCity(paramsArray[0]);
