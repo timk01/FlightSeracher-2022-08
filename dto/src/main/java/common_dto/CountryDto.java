@@ -6,9 +6,9 @@ import lombok.Data;
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class CountryDto {
-    String code;
-    String name;
-    String currency;
+    private String code;
+    private String name;
+    private String currency;
 
     @Override
     public String toString() {
