@@ -24,6 +24,6 @@ public class BotServiceTravelPayout implements BotSearchService {
 
     @Override
     public SearchResultDtoList getDtoTicketList(SearchRequestDto dto) {
-        return restTemplate.postForEntity(builder.toString(), dto, SearchResultDtoList.class).getBody();
+        return restTemplate.postForEntity(builder.toString(), dto,  SearchResultDtoList.class).getBody();
     }
 }
