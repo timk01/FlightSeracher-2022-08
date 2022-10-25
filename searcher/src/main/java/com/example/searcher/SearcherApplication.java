@@ -1,6 +1,6 @@
 package com.example.searcher;
 
-import com.example.searcher.service.TravelPayoutProperties;
+import com.example.searcher.configuration.TravelPayoutProperties;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;

@@ -1,4 +1,4 @@
-package com.example.searcher.service;
+package com.example.searcher.configuration;
 
 import lombok.Getter;
 import lombok.Setter;

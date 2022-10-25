@@ -1,5 +1,6 @@
 package com.example.searcher.service;
 
+import com.example.searcher.configuration.TravelPayoutProperties;
 import com.example.searcher.dtos.CountryDto;
 import lombok.NonNull;
 import org.apache.http.client.utils.URIBuilder;

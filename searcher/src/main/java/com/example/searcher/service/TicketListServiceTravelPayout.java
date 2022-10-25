@@ -1,5 +1,6 @@
 package com.example.searcher.service;
 
+import com.example.searcher.configuration.TravelPayoutProperties;
 import com.example.searcher.converter.TicketSearchResultToSearchResultDTOConverter;
 import com.example.searcher.model.TicketSearchResult;
 import common_dto.SearchRequestDto;
