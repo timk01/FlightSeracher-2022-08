@@ -1,7 +1,7 @@
 package com.example.searcher.controllers;
 
-import com.example.searcher.dtos.CountryDto;
 import com.example.searcher.service.CountrySearchService;
+import common_dto.CountryDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
