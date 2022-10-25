@@ -12,10 +12,10 @@ import java.util.List;
 
 @Service
 public class CountrySearchService {
-    private RestTemplate restTemplate;
-    private URIBuilder builder;
+    private final RestTemplate restTemplate;
+    private final URIBuilder builder;
 
-    public CountrySearchService(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties) throws URISyntaxException {
+     public CountrySearchService(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties){
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("https")
