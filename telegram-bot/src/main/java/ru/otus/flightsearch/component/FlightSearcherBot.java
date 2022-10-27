@@ -2,6 +2,7 @@ package ru.otus.flightsearch.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +15,7 @@ import ru.otus.flightsearch.configuration.BotConfig;
 import ru.otus.flightsearch.converter.TickerRequestToSearchRequestDtoConverter;
 import ru.otus.flightsearch.model.TicketRequest;
 import ru.otus.flightsearch.service.BotSearchService;
+import ru.otus.flightsearch.service.BotServiceCountries;
 
 @Slf4j
 @Component
@@ -21,40 +23,77 @@ import ru.otus.flightsearch.service.BotSearchService;
 public class FlightSearcherBot extends TelegramLongPollingBot {
     private final BotConfig config;
     private final BotSearchService botSearchService;
+
+    private final BotServiceCountries botServiceCountries;
     private final ObjectMapper objectMapper;
+
+    private static final String SHOW_COUNTRIES = "покажи список стран";
+    private static final String SHOW_TICKETS = "покажи билеты";
 
     @Override
     //@SneakyThrows
     public void onUpdateReceived(Update update) {
+
+
         if (update.hasMessage() && update.getMessage().hasText()) {
-            TicketRequest ticketRequest = null;
-            String messageText;
-            try {
-                ticketRequest = TicketRequest.ofText(update.getMessage().getText());
-            } catch (IllegalArgumentException e) {
-                messageText = "You entered a wrong date";
-            } catch (Exception e) {
-                messageText = e.getMessage();
+            String inputMessage = update.getMessage().getText();
+
+            if (inputMessage.startsWith(SHOW_TICKETS)){
+                processTicketRequest(update);
+            } else if(inputMessage.equals(SHOW_COUNTRIES)){
+                processCountryRequest(update);
             }
 
-            long chatId = update.getMessage().getChatId();
-            try {
-                sendMessage(chatId,
-                        objectMapper.
-                                writeValueAsString(
-                                        botSearchService
-                                        .getDtoTicketList(
-                                                TickerRequestToSearchRequestDtoConverter
-                                                        .convert(ticketRequest))));
-            } catch (JsonProcessingException e) {
-                e.printStackTrace();
-            }
+        }
+    }
+
+    private void processCountryRequest(Update update) {
+
+        long chatId = update.getMessage().getChatId();
+
+        try {
+            sendMessage(chatId,
+                    objectMapper.
+                            writeValueAsString(
+                                    botServiceCountries
+                                            .obtainCountriesList()));
+
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void processTicketRequest(Update update) {
+        TicketRequest ticketRequest = null;
+        String messageText;
+        String messageTextWithOutPrefix = update.getMessage().getText().replace(SHOW_TICKETS,"");
+
+        try {
+            ticketRequest = TicketRequest.ofText(messageTextWithOutPrefix.trim());
+        } catch (IllegalArgumentException e) {
+            messageText = "You entered a wrong date";
+        } catch (Exception e) {
+            messageText = e.getMessage();
+        }
+
+        long chatId = update.getMessage().getChatId();
+        try {
+            sendMessage(chatId,
+                    objectMapper.
+                            writeValueAsString(
+                                    botSearchService
+                                    .getDtoTicketList(
+                                            TickerRequestToSearchRequestDtoConverter
+                                                    .convert(ticketRequest))));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
         }
     }
 
 
     private void sendMessage(long chatId, String textToSend) {
         SendMessage message = new SendMessage();
+
         message.setChatId(String.valueOf(chatId));
         message.setText(textToSend);
         try {
