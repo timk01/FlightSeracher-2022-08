@@ -9,8 +9,14 @@ import java.util.List;
 
 
 @Data
+
 public class CountryListModel {
 
     @JsonFormat
-    private final List<CountryDto> listOfCountries;
+    private List<CountryDto> listOfCountries;
+
+    public CountryListModel(CountryDto[] array){
+
+        this.listOfCountries = List.of(array).subList(0,5);
+    }
 }

@@ -1,6 +1,7 @@
 package ru.otus.flightsearch.service;
 
 import common_dto.CountryDto;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +12,7 @@ import ru.otus.flightsearch.model.CountryModel;
 import java.util.List;
 
 @Service
+@Slf4j
 public class BotServiceCountries implements BotCountrySearchService {
 
 
@@ -29,7 +31,9 @@ public class BotServiceCountries implements BotCountrySearchService {
     }
 
     @Override
-    public CountryListModel obtainCountriesList() {
-        return restTemplate.getForEntity(builder.toString(), CountryListModel.class).getBody();
+        public CountryListModel obtainCountriesList() {
+        log.info(builder.toString());
+        CountryDto[] body = restTemplate.getForEntity(builder.toString(), CountryDto[].class).getBody();
+        return new CountryListModel(body);
     }
 }

@@ -1,6 +1,7 @@
 package ru.otus.flightsearch.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.otus.flightsearch.configuration.BotConfig;
 import ru.otus.flightsearch.converter.TickerRequestToSearchRequestDtoConverter;
+import ru.otus.flightsearch.model.CountryListModel;
 import ru.otus.flightsearch.model.TicketRequest;
 import ru.otus.flightsearch.service.BotSearchService;
 import ru.otus.flightsearch.service.BotServiceCountries;
@@ -52,11 +54,9 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
         long chatId = update.getMessage().getChatId();
 
         try {
-            sendMessage(chatId,
-                    objectMapper.
-                            writeValueAsString(
-                                    botServiceCountries
-                                            .obtainCountriesList()));
+            CountryListModel countriesList = botServiceCountries.obtainCountriesList();
+            JsonNode jsonNode = objectMapper.readTree(objectMapper.writeValueAsString(countriesList));
+            sendMessage(chatId, jsonNode.toPrettyString());
 
         } catch (JsonProcessingException e) {
             e.printStackTrace();
@@ -95,6 +95,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
         SendMessage message = new SendMessage();
 
         message.setChatId(String.valueOf(chatId));
+
         message.setText(textToSend);
         try {
             execute(message);
