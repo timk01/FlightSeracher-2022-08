@@ -11,6 +11,11 @@ import java.util.*;
 @UtilityClass
 public class TicketSearchResultToSearchResultDTOConverter {
 
+//    TicketSearchResultToSearchResultDTOConverter
+//            .convert(Objects
+//            .requireNonNull(response
+//            .getBody()));
+
     public SearchResultDtoList convert(TicketSearchResult result) {
 
         List<SearchResultDto> searchResultDtoList = new ArrayList<>();

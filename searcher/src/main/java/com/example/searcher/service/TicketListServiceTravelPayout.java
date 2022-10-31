@@ -32,7 +32,7 @@ public class TicketListServiceTravelPayout implements TicketListService {
                 .addParameter("sorting", "price")
                 .addParameter("trip_class", "0")
                 .addParameter("currency", "rub")
-                .addParameter("limit", "30")
+                .addParameter("limit", "10")
                 .addParameter("page", "1")
                 .addParameter("token", travelPayoutProperties.getToken());
     }
