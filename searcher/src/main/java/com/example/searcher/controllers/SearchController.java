@@ -21,14 +21,4 @@ public class SearchController {
 
         return ticketListService.getDtoTicketList(dto);
     }
-
-  /*  @PostMapping
-    public SearchResultDtoList search2(@RequestParam String origin, @RequestParam String destination, @RequestParam LocalDatedate datedate){
-        return ticketListService.getDtoTicketList(*//*dto*//*);
-    }*/
 }
-
-//todo
-//1. вынести дтошки наружу (-копирование)
-//2. разобюратсья с датой - аннотации и/или парс строчек из стоочек в даты
-//3. чтобы работало. и все. (достаточно резалт поиска)

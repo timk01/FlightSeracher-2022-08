@@ -15,7 +15,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -32,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ActiveProfiles("test")
 class SearchControllerTest {
 
-    @Value("test.test")
+    @Value("${test.test}")
     private String testField;
 
     @Autowired
@@ -46,7 +45,7 @@ class SearchControllerTest {
     }
 
     @Test
-    void search() throws Exception {
+    void testTicketsSearchSuccess() throws Exception {
         SearchRequestDto searchRequestDto = SearchRequestDto
                 .builder()
                 .origin("MOW")
@@ -65,16 +64,6 @@ class SearchControllerTest {
                         "$.searchResultDtoList[*].departCity").isNotEmpty())
                 .andReturn();
 
-        //2 ways: can do just.... perform and AFTER so asset
-/*        MvcResult result = mvc.perform(MockMvcRequestBuilders
-                        .post("/api/search")
-                        .content(objectMapper.writeValueAsString(searchRequestDto))
-                        .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andReturn();
-
-        result.getResponse().getContentAsString();*/
-
         String jsonString = mvcResult.getResponse().getContentAsString();
 
         SearchResultDtoList searchResultDtoList = objectMapper.readValue(jsonString, SearchResultDtoList.class);
@@ -88,5 +77,10 @@ class SearchControllerTest {
             assertEquals(actualSearchResult.get(i).getDepartCity(), "MOW");
             assertTrue(actualSearchResult.get(i).getArriveCity().equals("LON"));
         }
+    }
+
+    @Test
+    void testProperty() throws Exception {
+        assertEquals("hello world", testField);
     }
 }

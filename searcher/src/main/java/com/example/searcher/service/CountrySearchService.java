@@ -7,7 +7,6 @@ import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.net.URISyntaxException;
 import java.util.List;
 
 @Service
@@ -22,7 +21,6 @@ public class CountrySearchService {
                 .setHost(travelPayoutProperties.getUrl())
                 .setPath(travelPayoutProperties.getCountriesUrl());
     }
-
 
     public List<CountryDto> getCountry(){
         @NonNull
