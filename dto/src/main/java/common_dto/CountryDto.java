@@ -1,14 +1,28 @@
 package common_dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.Accessors;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Accessors(chain = true)
 public class CountryDto {
     private String code;
     private String name;
     private String currency;
+
+    public CountryDto(String code, String name, String currency) {
+        this.code = code;
+        this.name = name;
+        this.currency = currency;
+    }
+
+    public CountryDto() {
+    }
 
     @Override
     public String toString() {
