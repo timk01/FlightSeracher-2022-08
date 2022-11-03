@@ -20,6 +20,7 @@ import ru.otus.flightsearch.model.TicketRequest;
 import ru.otus.flightsearch.service.BotSearchService;
 import ru.otus.flightsearch.service.BotServiceCountries;
 
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,41 +58,32 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
         long chatId = update.getMessage().getChatId();
 
-        try {
             CountryListModel countriesList = botServiceCountries.obtainCountriesList();
-            JsonNode jsonNode = objectMapper.readTree(objectMapper.writeValueAsString(countriesList));
-
-
-//            jsonNode.toPrettyString()
             toNormalList(chatId, countriesList);
-            //sendMessage(chatId, toNormalList(chatId, countriesList));
 
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        }
     }
 
     private void toNormalList(long chatId, CountryListModel countryList) {
 
         List<CountryDto> arrCopy = countryList.getListOfCountries();
+        StringBuilder stringBuilder = new StringBuilder();
 
         int n = 20; //количесвто объектов которрое мы хотим переданных из массива в sendMessage
         int g = (int) Math.ceil((1.0*arrCopy.size())/n);
 
-        String country = null;
+        String country;
 
         for (int y = 0; y < g; y++) {
             int counter = 0;
-           country="";
-
             while (counter < n) {
                 if(arrCopy.isEmpty()) {
                     break;
                 }
-                country += arrCopy.get(0).getName() + "\n";
+                stringBuilder.append(arrCopy.get(0).getName()).append("\n");
                 arrCopy.remove(0);
                 counter++;
             }
+            country = stringBuilder.toString();
             log.info(country);
             sendMessage(chatId, country);
         }
@@ -100,16 +92,15 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
     private void processTicketRequest(Update update) {
 
         TicketRequest ticketRequest = null;
-        String messageText;
+
         String messageTextWithOutPrefix = update.getMessage().getText().replace(SHOW_TICKETS,"");
 
         try {
             ticketRequest = TicketRequest.ofText(messageTextWithOutPrefix.trim());
-        } catch (IllegalArgumentException e) {
-            messageText = "You entered a wrong date";
-        } catch (Exception e) {
-            messageText = e.getMessage();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
+
 
         long chatId = update.getMessage().getChatId();
         try {
