@@ -3,6 +3,7 @@ package ru.otus.flightsearch.component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import common_dto.CountryDto;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -18,6 +19,10 @@ import ru.otus.flightsearch.model.CountryListModel;
 import ru.otus.flightsearch.model.TicketRequest;
 import ru.otus.flightsearch.service.BotSearchService;
 import ru.otus.flightsearch.service.BotServiceCountries;
+
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 @Slf4j
 @Component
@@ -40,9 +45,9 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             String inputMessage = update.getMessage().getText();
 
-            if (inputMessage.startsWith(SHOW_TICKETS)){
+            if (inputMessage.startsWith(SHOW_TICKETS)) {
                 processTicketRequest(update);
-            } else if(inputMessage.equals(SHOW_COUNTRIES)){
+            } else if (inputMessage.equals(SHOW_COUNTRIES)) {
                 processCountryRequest(update);
             }
 
@@ -53,28 +58,49 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
         long chatId = update.getMessage().getChatId();
 
-        try {
             CountryListModel countriesList = botServiceCountries.obtainCountriesList();
-            JsonNode jsonNode = objectMapper.readTree(objectMapper.writeValueAsString(countriesList));
-            sendMessage(chatId, jsonNode.toPrettyString());
+            toNormalList(chatId, countriesList);
 
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
+    }
+
+    private void toNormalList(long chatId, CountryListModel countryList) {
+
+        List<CountryDto> arrCopy = countryList.getListOfCountries();
+        StringBuilder stringBuilder = new StringBuilder();
+
+        int n = 20; //количесвто объектов которрое мы хотим переданных из массива в sendMessage
+        int g = (int) Math.ceil((1.0*arrCopy.size())/n);
+
+        String country;
+
+        for (int y = 0; y < g; y++) {
+            int counter = 0;
+            while (counter < n) {
+                if(arrCopy.isEmpty()) {
+                    break;
+                }
+                stringBuilder.append(arrCopy.get(0).getName()).append("\n");
+                arrCopy.remove(0);
+                counter++;
+            }
+            country = stringBuilder.toString();
+            log.info(country);
+            sendMessage(chatId, country);
         }
     }
 
     private void processTicketRequest(Update update) {
+
         TicketRequest ticketRequest = null;
-        String messageText;
+
         String messageTextWithOutPrefix = update.getMessage().getText().replace(SHOW_TICKETS,"");
 
         try {
             ticketRequest = TicketRequest.ofText(messageTextWithOutPrefix.trim());
-        } catch (IllegalArgumentException e) {
-            messageText = "You entered a wrong date";
-        } catch (Exception e) {
-            messageText = e.getMessage();
+        } catch (ParseException e) {
+            throw new RuntimeException(e);
         }
+
 
         long chatId = update.getMessage().getChatId();
         try {
@@ -92,11 +118,12 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
 
     private void sendMessage(long chatId, String textToSend) {
+
         SendMessage message = new SendMessage();
 
         message.setChatId(String.valueOf(chatId));
-
         message.setText(textToSend);
+
         try {
             execute(message);
         } catch (TelegramApiException e) {
