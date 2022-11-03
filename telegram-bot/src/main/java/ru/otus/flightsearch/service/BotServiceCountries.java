@@ -15,8 +15,6 @@ import java.util.List;
 @Slf4j
 public class BotServiceCountries implements BotCountrySearchService {
 
-
-
     private final RestTemplate restTemplate;
     private final URIBuilder builder;
 
