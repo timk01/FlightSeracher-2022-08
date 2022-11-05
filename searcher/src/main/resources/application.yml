@@ -17,8 +17,9 @@ spring:
   jpa:
     properties:
       hibernate:
-        database: POSTGRESQL
         dialect: org.hibernate.dialect.PostgresPlusDialect
         show-sql: true
     hibernate:
-      ddl-auto: none
+      ddl-auto: validate
+  flyway:
+    enabled: true
