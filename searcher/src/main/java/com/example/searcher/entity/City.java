@@ -14,7 +14,6 @@ import java.util.List;
 public class City {
 
     @Id
-    //@GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "code")
     private String id;
 
