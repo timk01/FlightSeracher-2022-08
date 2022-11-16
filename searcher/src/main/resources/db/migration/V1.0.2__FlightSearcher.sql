@@ -1,10 +1,10 @@
-create table country
+create table if not exists country
 (
     code varchar(16) primary key,
     name varchar(64)
 );
 
-create table city
+create table if not exists city
 (
     code         varchar(16) primary key,
     name         varchar(64),
@@ -12,7 +12,7 @@ create table city
 
 );
 
-create table ticket
+create table if not exists ticket
 (
     id          serial primary key,
     value       bigint,
@@ -20,11 +20,11 @@ create table ticket
     destination varchar(16) references city (code)
 );
 
-create table airport
+create table if not exists airport
 (
     code        varchar(16) primary key,
-    iata_type   varchar(16) primary key,
-    name   varchar(64) primary key,
+    iata_type   varchar(16),
+    name   varchar(64),
     country_code varchar(16) references city (code),
     city_code varchar(16) references city (code)
 );
