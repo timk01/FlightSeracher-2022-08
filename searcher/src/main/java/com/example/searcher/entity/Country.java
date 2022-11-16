@@ -22,4 +22,7 @@ public class Country {
 
     @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
     private List<City> cities;
+
+    @OneToMany(mappedBy = "country", fetch = FetchType.LAZY)
+    private List<Airport> airports;
 }

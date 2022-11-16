@@ -30,4 +30,7 @@ public class City {
 
     @OneToMany(mappedBy = "cityDestination", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Ticket> ticketsDestination;
+
+    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+    private List<Airport> airports;
 }
