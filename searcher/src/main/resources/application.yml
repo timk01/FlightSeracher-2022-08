@@ -9,7 +9,7 @@ spring:
     init:
       platform: postgres
   datasource:
-    url: jdbc:postgresql://localhost:5432/flightsearcher
+    url: jdbc:postgresql://localhost:5432/postgres
     username: postgres
     password: postgres
     #dbcp2:
@@ -23,3 +23,5 @@ spring:
       ddl-auto: validate
   flyway:
     enabled: true
+    baseline-on-migrate: true
+    #locations: =classpath:src/main/kotlin/db/migration
