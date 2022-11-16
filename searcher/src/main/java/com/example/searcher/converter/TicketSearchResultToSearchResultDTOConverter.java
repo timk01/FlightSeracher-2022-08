@@ -11,11 +11,6 @@ import java.util.*;
 @UtilityClass
 public class TicketSearchResultToSearchResultDTOConverter {
 
-//    TicketSearchResultToSearchResultDTOConverter
-//            .convert(Objects
-//            .requireNonNull(response
-//            .getBody()));
-
     public SearchResultDtoList convert(TicketSearchResult result) {
 
         List<SearchResultDto> searchResultDtoList = new ArrayList<>();
@@ -28,7 +23,6 @@ public class TicketSearchResultToSearchResultDTOConverter {
                     .arriveCity(actualTicket.getDestination())
                     .site(actualTicket.getGate())
                     .price(actualTicket.getValue())
-                    //.localDate(actualTicket.getFoundAt())
                     .departDate(actualTicket.getDepartDate())
                     .returnDate(actualTicket.getReturnDate())
                     .numberOfChanges(actualTicket.getNumberOfChanges())

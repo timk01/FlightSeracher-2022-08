@@ -68,7 +68,6 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
         List<CountryDto> arrCopy = countryList.getListOfCountries();
         StringBuilder stringBuilder = new StringBuilder();
 
-        int n = 5; //количесвто объектов которрое мы хотим переданных из массива в sendMessage
         int g = (int) Math.ceil((1.0*arrCopy.size())/n);
 
         String country;

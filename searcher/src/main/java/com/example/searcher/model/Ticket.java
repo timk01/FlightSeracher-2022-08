@@ -19,7 +19,6 @@ public class Ticket {
     private LocalDate departDate;
     private LocalDate returnDate;
     private int numberOfChanges;
-    //private LocalDateTime foundAt;
     private long duration;
     private long distance;
 }
