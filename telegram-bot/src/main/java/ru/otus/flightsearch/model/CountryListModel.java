@@ -8,7 +8,6 @@ import java.util.List;
 
 
 @Data
-
 public class CountryListModel {
 
     @JsonFormat

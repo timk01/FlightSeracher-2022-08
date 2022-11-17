@@ -13,4 +13,6 @@ public class TravelPayoutProperties {
     private String url;
     private String searchUrl;
     private String countriesUrl;
+    private String citiesUrl;
+    private String airportsUrl;
 }

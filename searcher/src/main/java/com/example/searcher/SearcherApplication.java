@@ -10,6 +10,7 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class SearcherApplication {
 
     public static void main(String[] args) {
+
         SpringApplication.run(SearcherApplication.class, args);
     }
 }

@@ -7,9 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.otus.flightsearch.model.CountryListModel;
-import ru.otus.flightsearch.model.CountryModel;
-
-import java.util.List;
 
 @Service
 @Slf4j
