@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.sql.Timestamp;
 import java.util.Date;
 
 @Entity
@@ -17,7 +18,7 @@ public class Ticket {
 
     private Long price;
 
-    private Date departDate;
+    private Timestamp departDate;
 
     private Integer numberOfChanges;
 
