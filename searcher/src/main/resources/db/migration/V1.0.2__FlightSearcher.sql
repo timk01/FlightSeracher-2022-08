@@ -15,6 +15,9 @@ create table if not exists ticket
 (
     id          serial primary key,
     price       bigint,
+    depart_date date,
+    number_of_changes int,
+    duration bigint,
     origin      varchar(16) references city (code),
     destination varchar(16) references city (code)
 );

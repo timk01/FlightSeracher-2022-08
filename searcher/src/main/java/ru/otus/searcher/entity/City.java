@@ -15,7 +15,6 @@ public class City {
     @Id
     private String code;
 
-    @Column(name = "name")
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)

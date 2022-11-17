@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -15,6 +16,12 @@ public class Ticket {
     private Integer id;
 
     private Long price;
+
+    private Date departDate;
+
+    private Integer numberOfChanges;
+
+    private Long duration;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name =  "origin")
