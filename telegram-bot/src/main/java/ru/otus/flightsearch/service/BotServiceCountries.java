@@ -1,16 +1,15 @@
 package ru.otus.flightsearch.service;
 
-import common_dto.CountryDto;
+import DTO.CountryDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.otus.flightsearch.model.CountryListModel;
 
 @Service
 @Slf4j
-public class BotServiceCountries implements BotCountrySearchService {
+public class BotServiceCountries{
 
     private final RestTemplate restTemplate;
     private final URIBuilder builder;
@@ -22,13 +21,12 @@ public class BotServiceCountries implements BotCountrySearchService {
         this.builder = new URIBuilder()
                 .setScheme("http")
                 .setHost("localhost:8080")
-                .setPath("/api/country-search");
+                .setPath("/api/countries");
     }
 
-    @Override
-        public CountryListModel obtainCountriesList() {
+        public CountryDto[] obtainCountriesList() {
         log.info(builder.toString());
         CountryDto[] body = restTemplate.getForEntity(builder.toString(), CountryDto[].class).getBody();
-        return new CountryListModel(body);
+        return body;
     }
 }

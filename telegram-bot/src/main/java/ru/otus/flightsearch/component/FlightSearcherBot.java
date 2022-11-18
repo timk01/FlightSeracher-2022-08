@@ -2,8 +2,9 @@ package ru.otus.flightsearch.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import common_dto.AirportDto;
-import common_dto.CountryDto;
+import DTO.AirportDto;
+import DTO.CountryDto;
+import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -13,8 +14,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.otus.flightsearch.configuration.BotConfig;
 import ru.otus.flightsearch.converter.TickerRequestToSearchRequestDtoConverter;
-import ru.otus.flightsearch.model.AirportListModel;
-import ru.otus.flightsearch.model.CountryListModel;
 import ru.otus.flightsearch.model.TicketRequest;
 import ru.otus.flightsearch.service.BotSearchService;
 import ru.otus.flightsearch.service.BotServiceAirports;
@@ -62,13 +61,13 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
     private void processAirportRequest(Update update) {
         long chatId = update.getMessage().getChatId();
-        sendAirportList(chatId, List.of(botServiceAirports.getAirports()));
+        sendAirportList(chatId, Lists.newArrayList(botServiceAirports.getAirports()));
 
     }
 
     private void sendAirportList(long chatId, List<AirportDto> dtoList) {
         List<AirportDto> arrCopy = dtoList;
-        StringBuilder stringBuilder = new StringBuilder();
+
 
         int n = 20; //количество объектов которое мы хотим передать из массива в sendMessage
         int g = (int) Math.ceil((1.0*arrCopy.size())/n);
@@ -76,6 +75,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
         String country;
 
         for (int y = 0; y < g; y++) {
+            StringBuilder stringBuilder = new StringBuilder();
             int counter = 0;
             while (counter < n) {
                 if(arrCopy.isEmpty()) {
@@ -93,26 +93,23 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
     }
 
     private void processCountryRequest(Update update) {
-        //;;;
 
         long chatId = update.getMessage().getChatId();
-
-            CountryListModel countriesList = botServiceCountries.obtainCountriesList();
-            sendCountryList(chatId, countriesList);
+            sendCountryList(chatId, Lists.newArrayList(botServiceCountries.obtainCountriesList()));
 
     }
 
-    private void sendCountryList(long chatId, CountryListModel countryList) {
+    private void sendCountryList(long chatId, List<CountryDto> countryDtoList) {
 
-        List<CountryDto> arrCopy = countryList.getListOfCountries();
-        StringBuilder stringBuilder = new StringBuilder();
+        List<CountryDto> arrCopy = countryDtoList;
 
         int n = 20;
         int g = (int) Math.ceil((1.0*arrCopy.size())/n);
 
-        String country;
 
         for (int y = 0; y < g; y++) {
+            StringBuilder stringBuilder = new StringBuilder();
+
             int counter = 0;
             while (counter < n) {
                 if(arrCopy.isEmpty()) {
@@ -122,9 +119,9 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
                 arrCopy.remove(0);
                 counter++;
             }
-            country = stringBuilder.toString();
-            log.info(country);
-            sendMessage(chatId, country);
+
+            log.info(stringBuilder.toString());
+            sendMessage(chatId, stringBuilder.toString());
         }
     }
 

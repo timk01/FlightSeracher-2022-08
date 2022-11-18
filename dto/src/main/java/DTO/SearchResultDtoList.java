@@ -1,4 +1,4 @@
-package common_dto;
+package DTO;
 
 import lombok.*;
 

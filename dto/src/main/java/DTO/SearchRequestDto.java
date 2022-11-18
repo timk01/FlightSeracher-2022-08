@@ -1,11 +1,9 @@
-package common_dto;
+package DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Calendar;
 
 @Setter
 @Getter

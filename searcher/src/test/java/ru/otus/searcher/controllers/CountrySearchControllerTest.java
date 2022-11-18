@@ -2,7 +2,7 @@ package ru.otus.searcher.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import common_dto.CountryDto;
+import DTO.CountryDto;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +59,7 @@ class CountrySearchControllerTest {
                 .thenReturn(new ResponseEntity(expectedcountryDtos, HttpStatus.OK));
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
-                        .get("/api/country-search")
+                        .get("/api/countries")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andReturn();

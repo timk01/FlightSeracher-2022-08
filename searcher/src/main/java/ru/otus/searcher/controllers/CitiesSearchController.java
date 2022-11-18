@@ -1,16 +1,17 @@
-package com.example.searcher.controllers;
+package ru.otus.searcher.controllers;
 
-import com.example.searcher.service.CitiesSearchService;
-import common_dto.CityDto;
+
+import DTO.CityDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.otus.searcher.service.CitiesSearchService;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("api/city-search")
+@RequestMapping("api/cities")
 @RequiredArgsConstructor
 public class CitiesSearchController {
     private final CitiesSearchService citiesSearchService;

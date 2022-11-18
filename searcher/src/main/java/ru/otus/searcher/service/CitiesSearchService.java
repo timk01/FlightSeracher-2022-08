@@ -1,11 +1,12 @@
-package com.example.searcher.service;
+package ru.otus.searcher.service;
 
-import com.example.searcher.configuration.TravelPayoutProperties;
-import common_dto.CityDto;
+
+import DTO.CityDto;
 import lombok.NonNull;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.otus.searcher.configuration.TravelPayoutProperties;
 
 import java.util.List;
 

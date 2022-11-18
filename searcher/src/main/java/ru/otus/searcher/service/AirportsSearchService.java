@@ -1,12 +1,11 @@
-package com.example.searcher.service;
+package ru.otus.searcher.service;
 
-
-import com.example.searcher.configuration.TravelPayoutProperties;
-import common_dto.AirportDto;
+import DTO.AirportDto;
 import lombok.NonNull;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.otus.searcher.configuration.TravelPayoutProperties;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -31,7 +30,7 @@ public class AirportsSearchService {
         List<AirportDto> listOfAirports = List.of(responseArray);
 
         return listOfAirports.stream()
-                .filter(i->(i.isFlightable() && i.getIata_type().equals("airport")))
+                .filter(i->(i.isFlightable() && i.getIataType().equals("airport")))
                 .collect(Collectors.toList());
     }
 }
