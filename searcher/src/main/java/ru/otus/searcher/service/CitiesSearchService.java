@@ -1,7 +1,7 @@
 package ru.otus.searcher.service;
 
 
-import DTO.CityDto;
+import dto.CityDto;
 import lombok.NonNull;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class CitiesSearchService {
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
-                .setPath(travelPayoutProperties.getCitiesUrl());
+                .setPath(travelPayoutProperties.getCitiesPath());
     }
 
     public List<CityDto> getCities(){

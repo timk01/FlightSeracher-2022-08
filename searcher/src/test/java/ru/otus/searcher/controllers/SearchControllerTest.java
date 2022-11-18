@@ -2,9 +2,9 @@ package ru.otus.searcher.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import DTO.SearchRequestDto;
-import DTO.SearchResultDto;
-import DTO.SearchResultDtoList;
+import dto.SearchRequestDto;
+import dto.SearchResultDto;
+import dto.SearchResultDtoList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

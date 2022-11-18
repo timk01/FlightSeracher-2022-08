@@ -1,6 +1,6 @@
 package ru.otus.searcher.service;
 
-import DTO.CountryDto;
+import dto.CountryDto;
 import ru.otus.searcher.configuration.TravelPayoutProperties;
 import lombok.NonNull;
 import org.apache.http.client.utils.URIBuilder;
@@ -19,7 +19,7 @@ public class CountrySearchService {
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
-                .setPath(travelPayoutProperties.getCountriesUrl());
+                .setPath(travelPayoutProperties.getCountriesPath());
     }
 
     public List<CountryDto> getCountry(){

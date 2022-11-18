@@ -1,7 +1,7 @@
 package ru.otus.flightsearch.service;
 
-import DTO.SearchRequestDto;
-import DTO.SearchResultDtoList;
+import dto.SearchRequestDto;
+import dto.SearchResultDtoList;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

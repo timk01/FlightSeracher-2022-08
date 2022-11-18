@@ -1,6 +1,6 @@
 package ru.otus.flightsearch.service;
 
-import DTO.AirportDto;
+import dto.AirportDto;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;

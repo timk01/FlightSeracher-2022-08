@@ -1,6 +1,6 @@
 package ru.otus.searcher.controllers;
 
-import DTO.CountryDto;
+import dto.CountryDto;
 import ru.otus.searcher.service.CountrySearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;

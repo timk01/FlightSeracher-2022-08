@@ -1,6 +1,6 @@
 package ru.otus.searcher.service;
 
-import DTO.AirportDto;
+import dto.AirportDto;
 import lombok.NonNull;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Service;
@@ -20,7 +20,7 @@ public class AirportsSearchService {
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
-                .setPath(travelPayoutProperties.getAirportsUrl());
+                .setPath(travelPayoutProperties.getAirportsPath());
     }
 
 

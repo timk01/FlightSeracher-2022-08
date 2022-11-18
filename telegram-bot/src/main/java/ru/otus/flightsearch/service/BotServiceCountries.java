@@ -1,6 +1,6 @@
 package ru.otus.flightsearch.service;
 
-import DTO.CountryDto;
+import dto.CountryDto;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;

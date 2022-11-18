@@ -1,7 +1,7 @@
 package ru.otus.flightsearch.service;
 
-import DTO.SearchRequestDto;
-import DTO.SearchResultDtoList;
+import dto.SearchRequestDto;
+import dto.SearchResultDtoList;
 
 public interface BotSearchService {
     SearchResultDtoList getDtoTicketList(SearchRequestDto dto);

@@ -1,8 +1,8 @@
 package ru.otus.searcher.controllers;
 
 import ru.otus.searcher.service.TicketListService;
-import DTO.SearchRequestDto;
-import DTO.SearchResultDtoList;
+import dto.SearchRequestDto;
+import dto.SearchResultDtoList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

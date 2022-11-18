@@ -2,8 +2,8 @@ package ru.otus.flightsearch.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import DTO.AirportDto;
-import DTO.CountryDto;
+import dto.AirportDto;
+import dto.CountryDto;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
