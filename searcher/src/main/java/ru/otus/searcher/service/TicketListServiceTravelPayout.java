@@ -40,6 +40,7 @@ public class TicketListServiceTravelPayout implements TicketListService {
 
     @Override
     public SearchResultDtoList getDtoTicketList(SearchRequestDto dto) {
+        //
 
         ResponseEntity<TicketSearchResult> response = restTemplate
                 .getForEntity(
