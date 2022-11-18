@@ -2,9 +2,9 @@ package ru.otus.searcher.controllers;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import common_dto.SearchRequestDto;
-import common_dto.SearchResultDto;
-import common_dto.SearchResultDtoList;
+import dto.SearchRequestDto;
+import dto.SearchResultDto;
+import dto.SearchResultDtoList;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,7 +54,7 @@ class SearchControllerTest {
                 .build();
 
         MvcResult mvcResult = mvc.perform(MockMvcRequestBuilders
-                        .post("/api/search")
+                        .post("/api/tickets")
                         .content(objectMapper.writeValueAsString(searchRequestDto))
                         .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())

@@ -11,6 +11,8 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 public class TravelPayoutProperties {
     private String token;
     private String url;
-    private String searchUrl;
-    private String countriesUrl;
+    private String searchPath;
+    private String countriesPath;
+    private String citiesPath;
+    private String airportsPath;
 }

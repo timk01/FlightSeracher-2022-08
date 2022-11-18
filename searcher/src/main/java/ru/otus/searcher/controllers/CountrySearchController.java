@@ -1,6 +1,6 @@
 package ru.otus.searcher.controllers;
 
-import common_dto.CountryDto;
+import dto.CountryDto;
 import ru.otus.searcher.service.CountrySearchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +9,7 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("api/country-search")
+@RequestMapping("api/countries")
 @RequiredArgsConstructor
 public class CountrySearchController {
 
@@ -17,7 +17,6 @@ public class CountrySearchController {
 
     @GetMapping
     public List<CountryDto> getCountries() {
-
         return countrySearchService.getCountry();
     }
 }

@@ -1,15 +1,15 @@
 package ru.otus.searcher.controllers;
 
 import ru.otus.searcher.service.TicketListService;
-import common_dto.SearchRequestDto;
-import common_dto.SearchResultDtoList;
+import dto.SearchRequestDto;
+import dto.SearchResultDtoList;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RequestMapping("api/search")
+@RequestMapping("api/tickets")
 @RestController
 @RequiredArgsConstructor
 public class SearchController {

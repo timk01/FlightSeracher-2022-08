@@ -1,30 +1,31 @@
 package ru.otus.searcher.service;
 
-import dto.CountryDto;
-import ru.otus.searcher.configuration.TravelPayoutProperties;
+
+import dto.CityDto;
 import lombok.NonNull;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.otus.searcher.configuration.TravelPayoutProperties;
 
 import java.util.List;
 
 @Service
-public class CountrySearchService {
+public class CitiesSearchService {
     private final RestTemplate restTemplate;
     private final URIBuilder builder;
 
-     public CountrySearchService(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties){
+    public CitiesSearchService(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties){
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
-                .setPath(travelPayoutProperties.getCountriesPath());
+                .setPath(travelPayoutProperties.getCitiesPath());
     }
 
-    public List<CountryDto> getCountry(){
+    public List<CityDto> getCities(){
         @NonNull
-        CountryDto[] responseArray = restTemplate.getForEntity(builder.toString(),CountryDto[].class).getBody();
+        CityDto[] responseArray = restTemplate.getForEntity(builder.toString(), CityDto[].class).getBody();
         return List.of(responseArray);
     }
 }

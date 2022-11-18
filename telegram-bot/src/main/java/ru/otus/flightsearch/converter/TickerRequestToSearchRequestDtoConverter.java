@@ -1,6 +1,6 @@
 package ru.otus.flightsearch.converter;
 
-import common_dto.SearchRequestDto;
+import dto.SearchRequestDto;
 import lombok.experimental.UtilityClass;
 import ru.otus.flightsearch.model.TicketRequest;
 

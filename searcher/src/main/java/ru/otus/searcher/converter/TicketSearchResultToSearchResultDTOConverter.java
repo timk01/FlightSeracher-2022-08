@@ -2,8 +2,8 @@ package ru.otus.searcher.converter;
 
 import ru.otus.searcher.model.Ticket;
 import ru.otus.searcher.model.TicketSearchResult;
-import common_dto.SearchResultDto;
-import common_dto.SearchResultDtoList;
+import dto.SearchResultDto;
+import dto.SearchResultDtoList;
 import lombok.experimental.UtilityClass;
 
 import java.util.*;

@@ -3,8 +3,8 @@ package ru.otus.searcher.service;
 import ru.otus.searcher.configuration.TravelPayoutProperties;
 import ru.otus.searcher.converter.TicketSearchResultToSearchResultDTOConverter;
 import ru.otus.searcher.model.TicketSearchResult;
-import common_dto.SearchRequestDto;
-import common_dto.SearchResultDtoList;
+import dto.SearchRequestDto;
+import dto.SearchResultDtoList;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class TicketListServiceTravelPayout implements TicketListService {
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
-                .setPath(travelPayoutProperties.getSearchUrl())
+                .setPath(travelPayoutProperties.getSearchPath())
                 .addParameter("origin", "MOW")
                 .addParameter("destination", "LON")
                 .addParameter("sorting", "price")
@@ -40,6 +40,8 @@ public class TicketListServiceTravelPayout implements TicketListService {
 
     @Override
     public SearchResultDtoList getDtoTicketList(SearchRequestDto dto) {
+        //
+
         ResponseEntity<TicketSearchResult> response = restTemplate
                 .getForEntity(
                         builder.toString(),
