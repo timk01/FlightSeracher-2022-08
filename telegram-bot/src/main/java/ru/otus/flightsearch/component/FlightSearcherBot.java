@@ -90,7 +90,6 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
             log.info(country);
             sendMessage(chatId, country);
         }
-
     }
 
     private void processCountryRequest(Update update) {
@@ -107,7 +106,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
         List<CountryDto> arrCopy = countryList.getListOfCountries();
         StringBuilder stringBuilder = new StringBuilder();
 
-        int n = 20; //количество объектов которое мы хотим передать из массива в sendMessage
+        int n = 20;
         int g = (int) Math.ceil((1.0*arrCopy.size())/n);
 
         String country;

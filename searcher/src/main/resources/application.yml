@@ -1,0 +1,23 @@
+travelpayout:
+  token: "${TOKEN:bdd5ddc926ca9d51e9a35700060d1fd0}"
+  url: "${TRAVEL_PAYOUT_URL:api.travelpayouts.com}"
+  search-url: "/v2/prices/latest"
+  countries-url: "/aviasales_resources/v3/countries.json"
+
+spring:
+  sql:
+    init:
+      platform: postgres
+  datasource:
+    url: jdbc:postgresql://localhost:5433/flightsearcher
+    username: postgres
+    password: postgres
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgresPlusDialect
+        show-sql: true
+    hibernate:
+      ddl-auto: validate
+  flyway:
+    enabled: true
