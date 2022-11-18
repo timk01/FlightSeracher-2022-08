@@ -93,6 +93,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
     }
 
     private void processCountryRequest(Update update) {
+        //;;;
 
         long chatId = update.getMessage().getChatId();
 
