@@ -1,7 +1,7 @@
 package com.example.searcher.controllers;
 
 import com.example.searcher.service.CitiesSearchService;
-import common_dto.CitiesDto;
+import common_dto.CityDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,7 +16,7 @@ public class CitiesSearchController {
     private final CitiesSearchService citiesSearchService;
 
     @GetMapping
-    public List<CitiesDto> getListOfCities(){
+    public List<CityDto> getListOfCities(){
         return citiesSearchService.getCities();
     }
 }

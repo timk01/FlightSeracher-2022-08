@@ -62,12 +62,12 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
     private void processAirportRequest(Update update) {
         long chatId = update.getMessage().getChatId();
-        sendAirportList(chatId, botServiceAirports.getAirports());
+        sendAirportList(chatId, List.of(botServiceAirports.getAirports()));
 
     }
 
-    private <T> void sendAirportList(long chatId, AirportListModel model) {
-        List<AirportDto> arrCopy = model.getListOfAirports();
+    private void sendAirportList(long chatId, List<AirportDto> dtoList) {
+        List<AirportDto> arrCopy = dtoList;
         StringBuilder stringBuilder = new StringBuilder();
 
         int n = 20; //количество объектов которое мы хотим передать из массива в sendMessage

@@ -23,8 +23,8 @@ public class BotServiceAirports {
                 .setPath("/api/airport-search");
     }
 
-    public AirportListModel getAirports(){
+    public AirportDto[] getAirports(){
        AirportDto[] body = restTemplate.getForEntity(uriBuilder.toString(),AirportDto[].class).getBody();
-       return new AirportListModel(body);
+       return body;
     }
 }

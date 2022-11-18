@@ -12,6 +12,7 @@ public class AirportListModel {
     private final List<AirportDto> listOfAirports;
 
     public AirportListModel(AirportDto[] array) {
+
         this.listOfAirports = Lists.newArrayList(array);
     }
 }
