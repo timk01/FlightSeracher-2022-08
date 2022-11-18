@@ -1,8 +1,11 @@
 package ru.otus.searcher.entity;
 
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
+import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.util.List;
@@ -10,6 +13,7 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@Accessors(chain = true)
 public class City {
 
     @Id
