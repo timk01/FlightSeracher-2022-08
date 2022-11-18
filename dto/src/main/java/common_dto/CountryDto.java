@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.codehaus.jackson.annotate.JsonProperty;
 
 @Data
 @JsonIgnoreProperties(ignoreUnknown = true)
