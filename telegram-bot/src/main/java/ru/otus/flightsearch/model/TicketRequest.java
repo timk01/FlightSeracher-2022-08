@@ -36,9 +36,6 @@ public class TicketRequest {
     public static TicketRequest ofText(String text) throws ParseException {  // метод принимает строку и отдает TicketRequest
         final String[] paramsArray = text.split(" ");
 
-        validateCity(paramsArray[0]);
-        validateCity(paramsArray[1]);
-
         return new TicketRequest(paramsArray[0]
                 , paramsArray[1]
                 , parseDateAndConvertToLocalDateTime(paramsArray[2]));
@@ -55,8 +52,5 @@ public class TicketRequest {
         return parsedDate;
     }
 
-    private static void validateCity(String city) {
-        if (!citiesSet.contains(city.toLowerCase()))
-            throw new IllegalArgumentException("You are entering wrong city: " + city);
-    }
+
 }

@@ -1,6 +1,5 @@
 package ru.otus.searcher.controllers;
 
-
 import dto.AirportDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;

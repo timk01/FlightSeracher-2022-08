@@ -16,3 +16,9 @@ public class TravelPayoutProperties {
     private String citiesPath;
     private String airportsPath;
 }
+
+/*
+https://api.travelpayouts.com/aviasales_resources/v3/airports.json
+http://localhost:8080/api/airports
+
+ */
