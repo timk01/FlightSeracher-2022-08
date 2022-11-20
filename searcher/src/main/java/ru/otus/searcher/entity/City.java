@@ -25,12 +25,6 @@ public class City {
     @JoinColumn(name =  "country_code")
     private Country country;
 
-    @OneToMany(mappedBy = "cityOrigin", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Ticket> ticketsOrigin;
-
-    @OneToMany(mappedBy = "cityDestination", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Ticket> ticketsDestination;
-
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
     private List<Airport> airports;
 }
