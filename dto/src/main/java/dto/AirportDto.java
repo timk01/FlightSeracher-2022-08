@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class AirportDto {
     @JsonProperty(value = "city_code")
     private String cityCode;
