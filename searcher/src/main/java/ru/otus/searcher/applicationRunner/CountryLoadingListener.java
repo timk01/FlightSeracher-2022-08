@@ -1,19 +1,21 @@
 package ru.otus.searcher.applicationRunner;
 
 import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
-@Component
 @AllArgsConstructor
-
-public class CityLoadingServiceListener {
-
-    private final CityLoadingService cityLoadingService;
+@Component
+public class CountryLoadingListener {
+    private final CountryLoadingService countryLoadingService;
 
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        cityLoadingService.load();
+
+        countryLoadingService.load();
     }
+
+
 }

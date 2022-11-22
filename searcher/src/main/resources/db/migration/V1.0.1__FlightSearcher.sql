@@ -3,3 +3,4 @@ ALTER TABLE airport
 
 ALTER TABLE airport
     add column country_code varchar(16) references country (code);
+

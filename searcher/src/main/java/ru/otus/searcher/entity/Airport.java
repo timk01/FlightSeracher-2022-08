@@ -2,12 +2,14 @@ package ru.otus.searcher.entity;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
+@Accessors(chain = true)
 public class Airport {
 
     @Id
