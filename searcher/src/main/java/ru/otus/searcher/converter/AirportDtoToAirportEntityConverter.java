@@ -13,6 +13,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Component
+public class AirportDtoToAirportEntityConverter implements Converter<AirportDto, Airport> {
+
+    @Override
+    public Airport convert(AirportDto airport) {
+        return new Airport()
+                .setCode(airport.getCode())
+                .setName(airport.getName())
+                //.setCountry(new Country().setCode(airportFromDto.getCountryCode()))
+                .setCity(new City().setCode(airport.getCityCode()))
+                ;
+    }
+}
+
+/*
+@Component
 public class AirportDtoToAirportEntityConverter implements Converter<List<AirportDto>, List<Airport>> {
 
     @Override
@@ -30,3 +45,4 @@ public class AirportDtoToAirportEntityConverter implements Converter<List<Airpor
         return airportList;
     }
 }
+ */
