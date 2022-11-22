@@ -15,8 +15,6 @@ public class Airport {
     @Id
     private String code;
 
-    private String typeOfTransport;
-
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
