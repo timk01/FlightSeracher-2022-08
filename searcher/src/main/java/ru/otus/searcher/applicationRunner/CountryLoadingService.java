@@ -20,13 +20,13 @@ public class CountryLoadingService implements DataLoader{
 
     @Override
     public void load() {
-        List<CountryDto> countries = countrySearchController.getCountries();
-        List<Country> dtoToEntity = convert(countries);
-        List<Country> countriesSavedToDb = countryRepository.saveAll(dtoToEntity);
 
+        List<CountryDto> countries = countrySearchController.getCountries();
         log.info("countries counter got from travelPayout: {}", countries.size());
-        log.info("saved DB countries: {}", dtoToEntity.size());
-        log.info("countries counter saved to DB {}", countriesSavedToDb.size());
+        List<Country> dtoToEntity = convert(countries);
+        log.info("converted contries: {}", dtoToEntity.size());
+        List<Country> countriesSavedToDb = countryRepository.saveAll(dtoToEntity);
+        log.info("countries saved to DB {}", countriesSavedToDb.size());
 
     }
 
