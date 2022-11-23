@@ -7,7 +7,6 @@ import org.springframework.boot.context.properties.ConfigurationProperties;
 @Getter
 @Setter
 @ConfigurationProperties(prefix = "travelpayout")
-
 public class TravelPayoutProperties {
     private String token;
     private String url;
@@ -17,8 +16,3 @@ public class TravelPayoutProperties {
     private String airportsPath;
 }
 
-/*
-https://api.travelpayouts.com/aviasales_resources/v3/airports.json
-http://localhost:8080/api/airports
-
- */

@@ -6,6 +6,7 @@ import ru.otus.flightsearch.model.TicketRequest;
 
 @UtilityClass
 public class TickerRequestToSearchRequestDtoConverter {
+
     public SearchRequestDto convert(TicketRequest request) {
         return SearchRequestDto
                 .builder()

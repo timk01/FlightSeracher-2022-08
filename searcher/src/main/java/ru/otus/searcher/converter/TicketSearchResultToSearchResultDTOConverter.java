@@ -1,22 +1,24 @@
 package ru.otus.searcher.converter;
 
-import ru.otus.searcher.model.Ticket;
-import ru.otus.searcher.model.TicketSearchResult;
 import dto.SearchResultDto;
 import dto.SearchResultDtoList;
-import lombok.experimental.UtilityClass;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
+import ru.otus.searcher.model.Ticket;
+import ru.otus.searcher.model.TicketSearchResult;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
-@UtilityClass
-public class TicketSearchResultToSearchResultDTOConverter {
+@Component
+public class TicketSearchResultToSearchResultDTOConverter implements Converter<TicketSearchResult, SearchResultDtoList> {
 
+    @Override
     public SearchResultDtoList convert(TicketSearchResult result) {
 
         List<SearchResultDto> searchResultDtoList = new ArrayList<>();
 
         for (Ticket actualTicket : result.getData()) {
-
             SearchResultDto resultDto = SearchResultDto
                     .builder()
                     .departCity(actualTicket.getOrigin())

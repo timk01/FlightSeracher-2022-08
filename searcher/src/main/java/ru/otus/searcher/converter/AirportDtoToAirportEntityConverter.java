@@ -20,29 +20,8 @@ public class AirportDtoToAirportEntityConverter implements Converter<AirportDto,
         return new Airport()
                 .setCode(airport.getCode())
                 .setName(airport.getName())
-                //.setCountry(new Country().setCode(airportFromDto.getCountryCode()))
+                .setCountry(new Country().setCode(airport.getCountryCode()))
                 .setCity(new City().setCode(airport.getCityCode()))
                 ;
     }
 }
-
-/*
-@Component
-public class AirportDtoToAirportEntityConverter implements Converter<List<AirportDto>, List<Airport>> {
-
-    @Override
-    public List<Airport> convert(List<AirportDto> airports) {
-        List<Airport> airportList = new ArrayList<>();
-
-        for (AirportDto airportFromDto : airports) {
-            airportList.add(new Airport()
-                    .setCode(airportFromDto.getCode())
-                    .setName(airportFromDto.getName())
-                    //.setCountry(new Country().setCode(airportFromDto.getCountryCode()))
-                    .setCity(new City().setCode(airportFromDto.getCityCode())))
-                    ;
-        }
-        return airportList;
-    }
-}
- */

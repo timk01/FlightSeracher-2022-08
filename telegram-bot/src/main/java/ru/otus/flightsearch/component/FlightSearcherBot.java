@@ -35,13 +35,10 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
     private static final String SHOW_COUNTRIES = "покажи список стран";
     private static final String SHOW_TICKETS = "покажи билеты";
-
     private static final String SHOW_AIRPORTS = "покажи аэропорты";
-
-    private static final String SHOW_CITIES= "покажи города";
+    private static final String SHOW_CITIES = "покажи города";
 
     @Override
-    //@SneakyThrows
     public void onUpdateReceived(Update update) {
 
 
@@ -52,7 +49,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
                 processTicketRequest(update);
             } else if (inputMessage.equals(SHOW_COUNTRIES)) {
                 processCountryRequest(update);
-            } else if (inputMessage.equals(SHOW_AIRPORTS)){
+            } else if (inputMessage.equals(SHOW_AIRPORTS)) {
                 processAirportRequest(update);
             }
 
@@ -68,9 +65,8 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
     private void sendAirportList(long chatId, List<AirportDto> dtoList) {
         List<AirportDto> arrCopy = dtoList;
 
-
-        int n = 20; //количество объектов которое мы хотим передать из массива в sendMessage
-        int g = (int) Math.ceil((1.0*arrCopy.size())/n);
+        int n = 20;
+        int g = (int) Math.ceil((1.0 * arrCopy.size()) / n);
 
         String country;
 
@@ -78,7 +74,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
             StringBuilder stringBuilder = new StringBuilder();
             int counter = 0;
             while (counter < n) {
-                if(arrCopy.isEmpty()) {
+                if (arrCopy.isEmpty()) {
                     break;
                 }
                 stringBuilder.append(arrCopy.get(0).getCode()).append("\n");
@@ -95,7 +91,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
     private void processCountryRequest(Update update) {
 
         long chatId = update.getMessage().getChatId();
-            sendCountryList(chatId, Lists.newArrayList(botServiceCountries.obtainCountriesList()));
+        sendCountryList(chatId, Lists.newArrayList(botServiceCountries.obtainCountriesList()));
 
     }
 
@@ -104,7 +100,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
         List<CountryDto> arrCopy = countryDtoList;
 
         int n = 20;
-        int g = (int) Math.ceil((1.0*arrCopy.size())/n);
+        int g = (int) Math.ceil((1.0 * arrCopy.size()) / n);
 
 
         for (int y = 0; y < g; y++) {
@@ -112,7 +108,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
             int counter = 0;
             while (counter < n) {
-                if(arrCopy.isEmpty()) {
+                if (arrCopy.isEmpty()) {
                     break;
                 }
                 stringBuilder.append(arrCopy.get(0).getName()).append("\n");
@@ -129,7 +125,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
         TicketRequest ticketRequest = null;
 
-        String messageTextWithOutPrefix = update.getMessage().getText().replace(SHOW_TICKETS,"");
+        String messageTextWithOutPrefix = update.getMessage().getText().replace(SHOW_TICKETS, "");
 
         try {
             ticketRequest = TicketRequest.ofText(messageTextWithOutPrefix.trim());
@@ -144,14 +140,13 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
                     objectMapper.
                             writeValueAsString(
                                     botSearchService
-                                    .getDtoTicketList(
-                                            TickerRequestToSearchRequestDtoConverter
-                                                    .convert(ticketRequest))));
+                                            .getDtoTicketList(
+                                                    TickerRequestToSearchRequestDtoConverter
+                                                            .convert(ticketRequest))));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
     }
-
 
     private void sendMessage(long chatId, String textToSend) {
 

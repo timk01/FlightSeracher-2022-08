@@ -1,5 +1,6 @@
 package ru.otus.searcher.service;
 
+import org.springframework.core.convert.converter.Converter;
 import ru.otus.searcher.configuration.TravelPayoutProperties;
 import ru.otus.searcher.converter.TicketSearchResultToSearchResultDTOConverter;
 import ru.otus.searcher.model.TicketSearchResult;
@@ -18,9 +19,10 @@ public class TicketListServiceTravelPayout implements TicketListService {
 
     private final RestTemplate restTemplate;
     private final URIBuilder builder;
+    private final Converter<TicketSearchResult, SearchResultDtoList> converter;
 
     @Autowired
-    public TicketListServiceTravelPayout(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties) {
+    public TicketListServiceTravelPayout(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties, TicketSearchResultToSearchResultDTOConverter converter) {
 
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
@@ -35,20 +37,18 @@ public class TicketListServiceTravelPayout implements TicketListService {
                 .addParameter("limit", "10")
                 .addParameter("page", "1")
                 .addParameter("token", travelPayoutProperties.getToken());
-
+        this.converter = converter;
     }
 
     @Override
     public SearchResultDtoList getDtoTicketList(SearchRequestDto dto) {
-        //
-
         ResponseEntity<TicketSearchResult> response = restTemplate
                 .getForEntity(
                         builder.toString(),
                         TicketSearchResult.class
                 );
 
-        return TicketSearchResultToSearchResultDTOConverter
+        return converter
                 .convert(Objects
                         .requireNonNull(response
                                 .getBody()));
