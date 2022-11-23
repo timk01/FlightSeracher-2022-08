@@ -22,6 +22,7 @@ public class City {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
+
     @JoinColumn(name =  "country_code")
     private Country country;
 

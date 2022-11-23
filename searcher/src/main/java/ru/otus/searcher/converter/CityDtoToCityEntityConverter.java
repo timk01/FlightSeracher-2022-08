@@ -1,12 +1,9 @@
 package ru.otus.searcher.converter;
 
 import dto.CityDto;
-import dto.SearchResultDto;
-import dto.SearchResultDtoList;
 import lombok.experimental.UtilityClass;
 import ru.otus.searcher.entity.City;
-import ru.otus.searcher.model.Ticket;
-import ru.otus.searcher.model.TicketSearchResult;
+
 
 import java.util.ArrayList;
 import java.util.List;
