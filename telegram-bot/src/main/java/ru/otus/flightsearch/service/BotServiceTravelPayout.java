@@ -24,7 +24,7 @@ public class BotServiceTravelPayout implements BotSearchService {
         this.builder = new URIBuilder()
                 .setScheme("http")
                 .setHost("localhost:8080")
-                .setPath("/api/search");
+                .setPath("/api/tickets");
     }
 
     @Override
