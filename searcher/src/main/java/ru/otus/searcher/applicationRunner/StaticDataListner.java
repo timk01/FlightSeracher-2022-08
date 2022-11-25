@@ -7,14 +7,16 @@ import org.springframework.stereotype.Component;
 
 @Component
 @AllArgsConstructor
+public class StaticDataListner {
 
-public class StaticDataListner    {
     private final CityLoadingService cityLoadingService;
     private final CountryLoadingService countryLoadingService;
+    private final AirportLoadingService airportLoadingService;
+
     @EventListener
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        cityLoadingService.load();
         countryLoadingService.load();
-
+        cityLoadingService.load();
+        airportLoadingService.load();
     }
 }

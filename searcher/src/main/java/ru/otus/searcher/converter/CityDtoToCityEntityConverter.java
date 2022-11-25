@@ -1,25 +1,26 @@
 package ru.otus.searcher.converter;
 
 import dto.CityDto;
+import dto.CountryDto;
 import lombok.experimental.UtilityClass;
+import org.springframework.core.convert.converter.Converter;
+import org.springframework.stereotype.Component;
 import ru.otus.searcher.entity.City;
+import ru.otus.searcher.entity.Country;
 
 
 import java.util.ArrayList;
 import java.util.List;
 
-@UtilityClass
-public class CityDtoToCityEntityConverter {
+@Component
+public class CityDtoToCityEntityConverter implements Converter<CityDto, City> {
 
-    public List<City> convert(List<CityDto> cities) {
-
-        List<City> cityList = new ArrayList<>();
-
-        for (CityDto cityFromDto : cities) {
-            cityList.add(new City()
-                    .setCode(cityFromDto.getCode())
-                    .setName(cityFromDto.getName()));
-        }
-        return cityList;
+    @Override
+    public City convert(CityDto cityDto) {
+        return new City()
+                .setCode(cityDto.getCode())
+                .setName(cityDto.getName())
+                .setCountry(new Country().setCode(cityDto.getCountryCode()))
+                ;
     }
 }
