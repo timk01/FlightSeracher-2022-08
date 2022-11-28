@@ -3,6 +3,7 @@ package ru.otus.flightsearch.component;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.AirportDto;
+import dto.BuyerRecord;
 import dto.CountryDto;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
@@ -10,11 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.otus.flightsearch.configuration.BotConfig;
 import ru.otus.flightsearch.converter.TickerRequestToSearchRequestDtoConverter;
 import ru.otus.flightsearch.model.TicketRequest;
+import ru.otus.flightsearch.service.BotBuyerService;
 import ru.otus.flightsearch.service.BotSearchService;
 import ru.otus.flightsearch.service.BotServiceAirports;
 import ru.otus.flightsearch.service.BotServiceCountries;
@@ -31,6 +35,7 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
     private final BotServiceCountries botServiceCountries;
     private final BotServiceAirports botServiceAirports;
+    private final BotBuyerService botBuyerService;
     private final ObjectMapper objectMapper;
 
     private static final String SHOW_COUNTRIES = "покажи список стран";
@@ -41,9 +46,16 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
-
         if (update.hasMessage() && update.getMessage().hasText()) {
-            String inputMessage = update.getMessage().getText();
+            Message message = update.getMessage();
+            //@Id Long id, String firstName, boolean isBot, String lastName, String userName
+           /* botBuyerService.postBuyerInfo(
+                    new BuyerRecord(message.getChatId(),
+                            message.getFrom().getFirstName(),
+                                message.getFrom().getIsBot(),
+                                    message.getFrom().getLastName(),
+                                        message.getFrom().getLastName()));*/
+            String inputMessage = message.getText();
 
             if (inputMessage.startsWith(SHOW_TICKETS)) {
                 processTicketRequest(update);

@@ -14,7 +14,7 @@ public class CountrySearchService {
     private final RestTemplate restTemplate;
     private final URIBuilder builder;
 
-     public CountrySearchService(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties){
+    public CountrySearchService(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties) {
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("https")
@@ -22,9 +22,9 @@ public class CountrySearchService {
                 .setPath(travelPayoutProperties.getCountriesPath());
     }
 
-    public List<CountryDto> getCountry(){
+    public List<CountryDto> getCountry() {
         @NonNull
-        CountryDto[] responseArray = restTemplate.getForEntity(builder.toString(),CountryDto[].class).getBody();
+        CountryDto[] responseArray = restTemplate.getForEntity(builder.toString(), CountryDto[].class).getBody();
         return List.of(responseArray);
     }
 }
