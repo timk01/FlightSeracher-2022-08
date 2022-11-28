@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import ru.otus.buyer.model.Buyer;
 
-//@Repository
+@Repository
 public interface BuyerRepository extends JpaRepository<Buyer, Long> {
 }

@@ -29,7 +29,8 @@ public class BotBuyerService {
 
     public void postBuyerInfo(BuyerRecord buyerRecord) {
         BuyerRecord sendBuyerRecord = restTemplate.postForObject(builder.toString(), buyerRecord, BuyerRecord.class);
-        assert sendBuyerRecord != null;
-        log.info("posted info: {}", sendBuyerRecord.id());
+        if (sendBuyerRecord != null) {
+            log.info("posted info: {}", sendBuyerRecord.id());
+        }
     }
 }

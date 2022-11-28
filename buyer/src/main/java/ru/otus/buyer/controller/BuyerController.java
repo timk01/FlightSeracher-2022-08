@@ -15,6 +15,7 @@ public class BuyerController {
 
     private final BuyerService buyerService;
 
+    @PostMapping
     public void saveUserData(@RequestBody BuyerRecord buyerRecord){
 
         buyerService.saveUserInfo(buyerRecord);

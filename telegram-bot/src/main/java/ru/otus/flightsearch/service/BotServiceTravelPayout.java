@@ -23,14 +23,16 @@ public class BotServiceTravelPayout implements BotSearchService {
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("http")
-                .setHost("localhost:8080")
+                .setHost("localhost:8082")
                 .setPath("/api/tickets");
     }
 
     @Override
     public SearchResultDtoList getDtoTicketList(SearchRequestDto dto) {
         SearchResultDtoList body = restTemplate.postForEntity(builder.toString(), dto, SearchResultDtoList.class).getBody();
-        log.info("body: {}", body.toString());
+        if (body != null) {
+            log.info("body: {}", body.toString());
+        }
         return body;
     }
 }
