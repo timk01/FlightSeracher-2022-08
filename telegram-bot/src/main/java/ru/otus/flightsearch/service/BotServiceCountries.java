@@ -20,7 +20,7 @@ public class BotServiceCountries{
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("http")
-                .setHost("localhost:8080")
+                .setHost("localhost:8082")
                 .setPath("/api/countries");
     }
 

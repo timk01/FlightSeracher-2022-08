@@ -15,7 +15,7 @@ public class BotServiceAirports {
         this.restTemplate = restTemplate;
         this.uriBuilder = new URIBuilder()
                 .setScheme("http")
-                .setHost("localhost:8080")
+                .setHost("localhost:8082")
                 .setPath("/api/airports");
     }
 
