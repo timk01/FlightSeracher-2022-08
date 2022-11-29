@@ -6,7 +6,6 @@ import dto.CountryDto;
 import org.junit.Before;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -41,7 +40,6 @@ class CountrySearchControllerTest {
     private MockMvc mvc;
 
     @MockBean
-//    @Mock
     RestTemplate restTemplate;
 
     static ObjectMapper objectMapper = new ObjectMapper();
@@ -83,13 +81,11 @@ class CountrySearchControllerTest {
         assertNotNull(realCountryDtos);
 
         assertEquals(expectedCountryDtos.length, realCountryDtos.length);
-        //assertEquals(251, realCountryDtos.length);
 
         assertEquals(expectedCountryDtos[0].getCode(), realCountryDtos[0].getCode());
         assertEquals(expectedCountryDtos[0].getCurrency(), realCountryDtos[0].getCurrency());
         assertEquals(expectedCountryDtos[0].getName(), realCountryDtos[0].getName());
 
         verify(restTemplate, times(1)).getForEntity(URI, CountryDto[].class);
-        //verify(restTemplate, times(0)).getForEntity(URI, CountryDto[].class);
     }
 }

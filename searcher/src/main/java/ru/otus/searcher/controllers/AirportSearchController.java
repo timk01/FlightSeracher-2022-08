@@ -16,7 +16,7 @@ public class AirportSearchController {
     private final AirportsSearchService airportsSearchService;
 
     @GetMapping
-    public List<AirportDto> getAirports(){
+    public List<AirportDto> getAirports() {
 
         return airportsSearchService.getAirports();
     }

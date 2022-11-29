@@ -5,11 +5,8 @@ import dto.SearchResultDtoList;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-
-import java.time.LocalDate;
 
 @Service
 @Slf4j

@@ -23,14 +23,13 @@ public class AirportsSearchService {
                 .setPath(travelPayoutProperties.getAirportsPath());
     }
 
-
     public List<AirportDto> getAirports() {
         @NonNull
         AirportDto[] responseArray = restTemplate.getForEntity(builder.toString(), AirportDto[].class).getBody();
         List<AirportDto> listOfAirports = List.of(responseArray);
 
         return listOfAirports.stream()
-                .filter(i->(i.isFlightable() && i.getIataType().equals("airport")))
+                .filter(i -> (i.isFlightable() && i.getIataType().equals("airport")))
                 .collect(Collectors.toList());
     }
 }

@@ -14,7 +14,7 @@ import java.util.List;
 @Service
 @AllArgsConstructor
 @Slf4j
-public class CountryLoadingService implements DataLoader{
+public class CountryLoadingService implements DataLoader {
 
     private final CountrySearchController countrySearchController;
     private final CountryRepository countryRepository;

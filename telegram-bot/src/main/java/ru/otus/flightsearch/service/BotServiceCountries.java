@@ -9,7 +9,7 @@ import org.springframework.web.client.RestTemplate;
 
 @Service
 @Slf4j
-public class BotServiceCountries{
+public class BotServiceCountries {
 
     private final RestTemplate restTemplate;
     private final URIBuilder builder;
@@ -24,7 +24,7 @@ public class BotServiceCountries{
                 .setPath("/api/countries");
     }
 
-        public CountryDto[] obtainCountriesList() {
+    public CountryDto[] obtainCountriesList() {
         log.info(builder.toString());
         CountryDto[] body = restTemplate.getForEntity(builder.toString(), CountryDto[].class).getBody();
         return body;

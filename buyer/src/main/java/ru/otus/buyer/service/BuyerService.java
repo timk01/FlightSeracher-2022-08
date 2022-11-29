@@ -17,6 +17,6 @@ public class BuyerService {
     private final Converter<BuyerRecord, Buyer> converter;
 
     public void saveUserInfo(BuyerRecord buyerRecord) {
-            buyerRepository.save(Objects.requireNonNull(converter.convert(buyerRecord)));
+        buyerRepository.save(Objects.requireNonNull(converter.convert(buyerRecord)));
     }
 }

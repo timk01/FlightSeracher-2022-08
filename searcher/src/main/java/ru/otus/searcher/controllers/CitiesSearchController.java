@@ -17,7 +17,7 @@ public class CitiesSearchController {
     private final CitiesSearchService citiesSearchService;
 
     @GetMapping
-    public List<CityDto> getListOfCities(){
+    public List<CityDto> getListOfCities() {
 
         return citiesSearchService.getCities();
     }

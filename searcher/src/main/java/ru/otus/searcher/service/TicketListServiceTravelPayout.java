@@ -1,21 +1,17 @@
 package ru.otus.searcher.service;
 
-import org.apache.http.protocol.HTTP;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.core.convert.converter.Converter;
-import org.springframework.http.HttpMethod;
-import ru.otus.searcher.configuration.TravelPayoutProperties;
-import ru.otus.searcher.converter.TicketSearchResultToSearchResultDTOConverter;
-import ru.otus.searcher.model.TicketSearchResult;
 import dto.SearchRequestDto;
 import dto.SearchResultDtoList;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.convert.converter.Converter;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.otus.searcher.configuration.TravelPayoutProperties;
+import ru.otus.searcher.converter.TicketSearchResultToSearchResultDTOConverter;
+import ru.otus.searcher.model.TicketSearchResult;
 
-import java.util.List;
 import java.util.Objects;
 
 @Service

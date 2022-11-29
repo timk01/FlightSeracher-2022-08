@@ -1,14 +1,11 @@
 package ru.otus.searcher.applicationRunner;
 
 import dto.CityDto;
-import dto.CountryDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
-import ru.otus.searcher.converter.CityDtoToCityEntityConverter;
 import ru.otus.searcher.entity.City;
-import ru.otus.searcher.entity.Country;
 import ru.otus.searcher.repository.CityRepository;
 import ru.otus.searcher.service.CitiesSearchService;
 
@@ -17,7 +14,7 @@ import java.util.List;
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class CityLoadingService implements DataLoader{
+public class CityLoadingService implements DataLoader {
 
     private final CitiesSearchService citiesSearchService;
     private final CityRepository cityRepository;

@@ -1,11 +1,11 @@
 package ru.otus.searcher.service;
 
 import dto.CountryDto;
-import ru.otus.searcher.configuration.TravelPayoutProperties;
 import lombok.NonNull;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.otus.searcher.configuration.TravelPayoutProperties;
 
 import java.util.List;
 

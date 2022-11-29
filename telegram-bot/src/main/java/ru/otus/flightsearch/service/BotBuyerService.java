@@ -1,10 +1,6 @@
 package ru.otus.flightsearch.service;
 
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import dto.BuyerRecord;
-import dto.SearchRequestDto;
-import dto.SearchResultDtoList;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;

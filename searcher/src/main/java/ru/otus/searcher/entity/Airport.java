@@ -18,10 +18,10 @@ public class Airport {
     private String name;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name =  "country_code")
+    @JoinColumn(name = "country_code")
     private Country country;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name =  "city_code")
+    @JoinColumn(name = "city_code")
     private City city;
 }
