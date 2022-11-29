@@ -30,7 +30,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.2</version>
+                <version>${maven.surefire.plugin.version}</version>
             </plugin>
         </plugins>
     </build>
@@ -40,12 +40,13 @@
         <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
-            <version>31.1-jre</version>
+            <version>${guava.version}</version>
         </dependency>
 
         <dependency>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
             <groupId>org.springframework.boot</groupId>
+            <version>${starter.data.jpa.version}</version>
         </dependency>
         <dependency>
             <artifactId>lombok</artifactId>
@@ -55,7 +56,7 @@
         <dependency>
             <artifactId>telegrambots</artifactId>
             <groupId>org.telegram</groupId>
-            <version>6.1.0</version>
+            <version>${telegrambots.org.telegram.version}</version>
         </dependency>
         <dependency>
             <artifactId>spring-boot-starter-test</artifactId>
@@ -74,6 +75,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
+            <version>${jackson.datatype.jsr310.version}</version>
         </dependency>
         <dependency>
             <groupId>ru.otus.flightsearch</groupId>

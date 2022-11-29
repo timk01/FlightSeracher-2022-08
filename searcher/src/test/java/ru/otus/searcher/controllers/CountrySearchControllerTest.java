@@ -48,7 +48,7 @@ class CountrySearchControllerTest {
 
     @Before
     public void initMocks() {
-        MockitoAnnotations.openMocks(this);
+        MockitoAnnotations.initMocks(this);
     }
 
     @BeforeAll
