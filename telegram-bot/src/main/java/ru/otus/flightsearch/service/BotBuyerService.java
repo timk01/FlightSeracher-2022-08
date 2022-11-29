@@ -6,6 +6,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.otus.flightsearch.configuration.BotServiceProperties;
 
 @Service
 @Slf4j
@@ -15,12 +16,12 @@ public class BotBuyerService {
     private final URIBuilder builder;
 
     @Autowired
-    public BotBuyerService(RestTemplate restTemplate) {
+    public BotBuyerService(RestTemplate restTemplate, BotServiceProperties botServiceProperties) {
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("http")
-                .setHost("localhost:8080")
-                .setPath("api/buyers/info/save");
+                .setHost(botServiceProperties.getBuyerDataHost())
+                .setPath(botServiceProperties.getBuyerDataPath());
     }
 
     public void postBuyerInfo(BuyerRecord buyerRecord) {

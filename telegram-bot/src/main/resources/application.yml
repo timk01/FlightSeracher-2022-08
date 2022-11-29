@@ -3,3 +3,11 @@ bot:
   token: 5598127264:AAH50gM1yeV3h3wvj4kgSxH8ML5_yX8bDO8
 server:
   port: 8081
+botservice:
+  travel-payout-data-host: "localhost:8082"
+  airport-path: "/api/airports"
+  countries-path: "/api/countries"
+  tickets-path: "/api/tickets"
+  cities-path:
+  buyer-data-host: "localhost:8080"
+  buyer-data-path: "api/buyers/info/save"

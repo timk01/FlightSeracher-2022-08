@@ -7,6 +7,7 @@ import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import ru.otus.flightsearch.configuration.BotServiceProperties;
 
 @Service
 @Slf4j
@@ -16,12 +17,12 @@ public class BotServiceTravelPayout implements BotSearchService {
     private final URIBuilder builder;
 
     @Autowired
-    public BotServiceTravelPayout(RestTemplate restTemplate) {
+    public BotServiceTravelPayout(RestTemplate restTemplate, BotServiceProperties botServiceProperties) {
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("http")
-                .setHost("localhost:8082")
-                .setPath("/api/tickets");
+                .setHost(botServiceProperties.getTravelPayoutDataHost())
+                .setPath(botServiceProperties.getTicketsPath());
     }
 
     @Override
