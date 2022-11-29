@@ -20,6 +20,7 @@
 
     <properties>
         <java.version>17</java.version>
+        <starter.data.jpa.version>2.7.5</starter.data.jpa.version>
     </properties>
 
     <modules>
@@ -76,6 +77,19 @@
                 <artifactId>jackson-datatype-jsr310</artifactId>
                 <version>2.13.4</version>
             </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-mapper-asl</artifactId>
+                <version>1.9.13</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-jpa</artifactId>
+                <version>${starter.data.jpa.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 </project>
