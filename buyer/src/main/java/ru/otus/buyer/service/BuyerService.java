@@ -16,7 +16,8 @@ public class BuyerService {
     private final BuyerRepository buyerRepository;
     private final Converter<BuyerRecord, Buyer> converter;
 
+    @SuppressWarnings("ConstantConditions")
     public void saveUserInfo(BuyerRecord buyerRecord) {
-        buyerRepository.save(Objects.requireNonNull(converter.convert(buyerRecord)));
+        buyerRepository.save(converter.convert(buyerRecord));
     }
 }

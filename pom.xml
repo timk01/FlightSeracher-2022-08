@@ -26,7 +26,6 @@
         <org.apache.httpcomponents.httpclient.version>4.5.13</org.apache.httpcomponents.httpclient.version>
         <postgresql.version>42.5.0</postgresql.version>
         <org.jetbrains.annotations.version>23.0.0</org.jetbrains.annotations.version>
-        <guava.version>31.1-jre</guava.version>
         <telegrambots.org.telegram.version>6.1.0</telegrambots.org.telegram.version>
         <maven.surefire.plugin.version>2.22.2</maven.surefire.plugin.version>
         <spring.boot.starter.test.version>2.7.2</spring.boot.starter.test.version>
