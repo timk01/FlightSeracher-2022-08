@@ -29,7 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest(webEnvironment = RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class SearchControllerTest {
+class TicketSearchControllerTest {
 
     @Value("${test.test}")
     private String testField;
@@ -71,7 +71,7 @@ class SearchControllerTest {
         assertNotNull(searchResultDtoList);
         List<SearchResultDto> actualSearchResult = searchResultDtoList.getSearchResultDtoList();
         assertNotNull(actualSearchResult);
-        assertEquals(actualSearchResult.size(), 30);
+        assertEquals(actualSearchResult.size(), 10);
 
         for (int i = 0; i < actualSearchResult.size(); i++) {
             assertEquals(actualSearchResult.get(i).getDepartCity(), "MOW");

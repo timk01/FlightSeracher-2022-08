@@ -1,6 +1,6 @@
 package ru.otus.flightsearch.service;
 
-import dto.CountryDto;
+import dto.BuyerRecord;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,24 +10,24 @@ import ru.otus.flightsearch.configuration.BotServiceProperties;
 
 @Service
 @Slf4j
-public class BotServiceCountries {
+public class BotBuyerService {
 
     private final RestTemplate restTemplate;
     private final URIBuilder builder;
 
     @Autowired
-    public BotServiceCountries(RestTemplate restTemplate, BotServiceProperties botServiceProperties) {
-
+    public BotBuyerService(RestTemplate restTemplate, BotServiceProperties botServiceProperties) {
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("http")
-                .setHost(botServiceProperties.getTravelPayoutDataHost())
-                .setPath(botServiceProperties.getCountriesPath());
+                .setHost(botServiceProperties.getBuyerDataHost())
+                .setPath(botServiceProperties.getBuyerDataPath());
     }
 
-    public CountryDto[] obtainCountriesList() {
-        log.info(builder.toString());
-        CountryDto[] body = restTemplate.getForEntity(builder.toString(), CountryDto[].class).getBody();
-        return body;
+    public void postBuyerInfo(BuyerRecord buyerRecord) {
+        BuyerRecord sendBuyerRecord = restTemplate.postForObject(builder.toString(), buyerRecord, BuyerRecord.class);
+        if (sendBuyerRecord != null) {
+            log.info("posted info: {}", sendBuyerRecord.id());
+        }
     }
 }

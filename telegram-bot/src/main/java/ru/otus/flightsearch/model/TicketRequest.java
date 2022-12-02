@@ -3,15 +3,12 @@ package ru.otus.flightsearch.model;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.time.temporal.ChronoField;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 
 @Data
 @Slf4j
@@ -45,7 +42,7 @@ public class TicketRequest {
         LocalDate parsedDate;
         try {
             parsedDate = LocalDate.parse(dateStr, DateTimeFormatter.ofPattern(europeanDatePattern));
-        } catch (DateTimeParseException  e) {
+        } catch (DateTimeParseException e) {
             log.error("You are entering wrong formatted date");
             return null;
         }

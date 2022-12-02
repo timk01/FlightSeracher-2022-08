@@ -1,26 +1,20 @@
 package ru.otus.searcher.applicationRunner;
 
 import dto.AirportDto;
-import dto.CityDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Service;
-import ru.otus.searcher.converter.CityDtoToCityEntityConverter;
 import ru.otus.searcher.entity.Airport;
-import ru.otus.searcher.entity.City;
 import ru.otus.searcher.repository.AirportRepository;
-import ru.otus.searcher.repository.CityRepository;
 import ru.otus.searcher.service.AirportsSearchService;
-import ru.otus.searcher.service.CitiesSearchService;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @Slf4j
-public class AirportLoadingService implements DataLoader{
+public class AirportLoadingService implements DataLoader {
 
     private final AirportsSearchService airportsSearchService;
     private final AirportRepository airportRepository;
