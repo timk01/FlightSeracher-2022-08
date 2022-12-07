@@ -10,9 +10,14 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.otus.searcher.configuration.TravelPayoutProperties;
 import ru.otus.searcher.converter.TicketSearchResultToSearchResultDTOConverter;
+import ru.otus.searcher.entity.City;
+import ru.otus.searcher.exception.CustomException;
 import ru.otus.searcher.model.TicketSearchResult;
+import ru.otus.searcher.repository.CityRepository;
+import ru.otus.searcher.repository.TicketRepository;
 
 import java.util.Objects;
+import java.util.Optional;
 
 @Service
 public class TicketListServiceTravelPayout implements TicketListService {
@@ -20,10 +25,10 @@ public class TicketListServiceTravelPayout implements TicketListService {
     private final RestTemplate restTemplate;
     private final URIBuilder builder;
     private final Converter<TicketSearchResult, SearchResultDtoList> converter;
+    private final CityRepository cityRepository;
 
     @Autowired
-    public TicketListServiceTravelPayout(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties, TicketSearchResultToSearchResultDTOConverter converter) {
-
+    public TicketListServiceTravelPayout(RestTemplate restTemplate, TravelPayoutProperties travelPayoutProperties, TicketSearchResultToSearchResultDTOConverter converter, CityRepository cityRepository) {
         this.restTemplate = restTemplate;
         this.builder = new URIBuilder()
                 .setScheme("https")
@@ -38,13 +43,23 @@ public class TicketListServiceTravelPayout implements TicketListService {
                 .addParameter("page", "1")
                 .addParameter("token", travelPayoutProperties.getToken());
         this.converter = converter;
+        this.cityRepository = cityRepository;
     }
 
     @Override
     public SearchResultDtoList getDtoTicketList(SearchRequestDto dto) {
+        Optional<City> originCity = cityRepository.findCityByName(dto.getOrigin());
+        Optional<City> destinationCity = cityRepository.findCityByName(dto.getDestination());
+        if (!(originCity.isPresent() && destinationCity.isPresent())) {
+            throw new CustomException("Wrong destination or origin!");
+        }
+        String builderString = builder
+                .setParameter("origin", originCity.get().getCode())
+                .setParameter("destination", destinationCity.get().getCode())
+                .toString();
         ResponseEntity<TicketSearchResult> response = restTemplate
                 .getForEntity(
-                        builder.toString(),
+                        builderString,
                         TicketSearchResult.class
                 );
 
@@ -52,5 +67,9 @@ public class TicketListServiceTravelPayout implements TicketListService {
                 .convert(Objects
                         .requireNonNull(response
                                 .getBody()));
+    }
+
+    private boolean isDataRight(SearchRequestDto dto) {
+        return cityRepository.findCityByName(dto.getOrigin()).isPresent() && cityRepository.findCityByName(dto.getDestination()).isPresent();
     }
 }

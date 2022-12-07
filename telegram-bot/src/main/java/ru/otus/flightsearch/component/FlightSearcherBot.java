@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import dto.AirportDto;
 import dto.BuyerRecord;
 import dto.CountryDto;
+import dto.SearchResultDtoList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -143,8 +144,19 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
             throw new RuntimeException(e);
         }
 
-
         long chatId = update.getMessage().getChatId();
+
+        //не совсем верная тема и не знаю как тут обрабатывать
+
+/*        try {
+            botSearchService
+                    .getDtoTicketList(
+                            TickerRequestToSearchRequestDtoConverter
+                                    .convert(ticketRequest));
+        } catch (RuntimeException e) {
+            sendMessage(chatId, e.toString());
+        }*/
+
         try {
             sendMessage(chatId,
                     objectMapper.
