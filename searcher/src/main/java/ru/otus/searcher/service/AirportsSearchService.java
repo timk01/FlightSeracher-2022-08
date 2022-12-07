@@ -20,7 +20,9 @@ public class AirportsSearchService {
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
-                .setPath(travelPayoutProperties.getAirportsPath());
+                .setPath(travelPayoutProperties.getAirportsPath())
+                .addParameter(travelPayoutProperties.getLocaleKey(), travelPayoutProperties.getLocaleValue())
+        ;
     }
 
     public List<AirportDto> getAirports() {
