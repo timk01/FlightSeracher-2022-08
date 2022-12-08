@@ -11,10 +11,9 @@ import org.springframework.web.client.RestTemplate;
 import ru.otus.searcher.configuration.TravelPayoutProperties;
 import ru.otus.searcher.converter.TicketSearchResultToSearchResultDTOConverter;
 import ru.otus.searcher.entity.City;
-import ru.otus.searcher.exception.CustomException;
+import ru.otus.searcher.exception.WrongCityDataException;
 import ru.otus.searcher.model.TicketSearchResult;
 import ru.otus.searcher.repository.CityRepository;
-import ru.otus.searcher.repository.TicketRepository;
 
 import java.util.Objects;
 import java.util.Optional;
@@ -51,10 +50,10 @@ public class TicketListServiceTravelPayout implements TicketListService {
         Optional<City> originCity = cityRepository.findCityByName(dto.getOrigin());
         Optional<City> destinationCity = cityRepository.findCityByName(dto.getDestination());
         if (!(originCity.isPresent() && destinationCity.isPresent())) {
-            throw new CustomException("Wrong destination or origin!");
+            throw new WrongCityDataException("Wrong destination or origin!");
         }
         String builderString = builder
-                .setParameter("origin", originCity.get().getCode())
+                .setParameter("origin", "mo3"/*originCity.get().getCode()*/)
                 .setParameter("destination", destinationCity.get().getCode())
                 .toString();
         ResponseEntity<TicketSearchResult> response = restTemplate
@@ -63,13 +62,11 @@ public class TicketListServiceTravelPayout implements TicketListService {
                         TicketSearchResult.class
                 );
 
+        response.getStatusCode();
+
         return converter
                 .convert(Objects
                         .requireNonNull(response
                                 .getBody()));
-    }
-
-    private boolean isDataRight(SearchRequestDto dto) {
-        return cityRepository.findCityByName(dto.getOrigin()).isPresent() && cityRepository.findCityByName(dto.getDestination()).isPresent();
     }
 }

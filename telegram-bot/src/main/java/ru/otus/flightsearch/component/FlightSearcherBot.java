@@ -18,10 +18,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.otus.flightsearch.configuration.BotConfig;
 import ru.otus.flightsearch.converter.TickerRequestToSearchRequestDtoConverter;
 import ru.otus.flightsearch.model.TicketRequest;
-import ru.otus.flightsearch.service.BotBuyerService;
-import ru.otus.flightsearch.service.BotSearchService;
-import ru.otus.flightsearch.service.BotServiceAirports;
-import ru.otus.flightsearch.service.BotServiceCountries;
+import ru.otus.flightsearch.service.*;
 
 import java.text.ParseException;
 import java.util.List;
@@ -32,6 +29,7 @@ import java.util.List;
 public class FlightSearcherBot extends TelegramLongPollingBot {
     private final BotConfig config;
     private final BotSearchService botSearchService;
+    private final BotServiceTravelPayout botServiceTravelPayout;
 
     private final BotServiceCountries botServiceCountries;
     private final BotServiceAirports botServiceAirports;
@@ -146,25 +144,20 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
 
         long chatId = update.getMessage().getChatId();
 
-        //не совсем верная тема и не знаю как тут обрабатывать
-
-/*        try {
-            botSearchService
+        try {
+            SearchResultDtoList dtoTicketList = botServiceTravelPayout
                     .getDtoTicketList(
                             TickerRequestToSearchRequestDtoConverter
                                     .convert(ticketRequest));
-        } catch (RuntimeException e) {
-            sendMessage(chatId, e.toString());
-        }*/
+            if (!dtoTicketList.getSearchResultDtoList().isEmpty()) {
+                sendMessage(chatId,
+                        objectMapper.
+                                writeValueAsString(dtoTicketList));
+            } else {
+                sendMessage(chatId,
+                        "wrong incoming data");
+            }
 
-        try {
-            sendMessage(chatId,
-                    objectMapper.
-                            writeValueAsString(
-                                    botSearchService
-                                            .getDtoTicketList(
-                                                    TickerRequestToSearchRequestDtoConverter
-                                                            .convert(ticketRequest))));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
         }
