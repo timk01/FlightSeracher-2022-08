@@ -53,7 +53,7 @@ public class TicketListServiceTravelPayout implements TicketListService {
             throw new WrongCityDataException("Wrong destination or origin!");
         }
         String builderString = builder
-                .setParameter("origin", "mo3"/*originCity.get().getCode()*/)
+                .setParameter("origin", /*"mo3"*/originCity.get().getCode())
                 .setParameter("destination", destinationCity.get().getCode())
                 .toString();
         ResponseEntity<TicketSearchResult> response = restTemplate

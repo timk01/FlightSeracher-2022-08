@@ -28,7 +28,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FlightSearcherBot extends TelegramLongPollingBot {
     private final BotConfig config;
-    private final BotSearchService botSearchService;
     private final BotServiceTravelPayout botServiceTravelPayout;
 
     private final BotServiceCountries botServiceCountries;
