@@ -6,6 +6,7 @@ import com.google.common.collect.Lists;
 import dto.AirportDto;
 import dto.BuyerRecord;
 import dto.CountryDto;
+import dto.SearchResultDtoList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -16,11 +17,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.otus.flightsearch.configuration.BotConfig;
 import ru.otus.flightsearch.converter.TickerRequestToSearchRequestDtoConverter;
+import ru.otus.flightsearch.exception.WrongCityDataException;
 import ru.otus.flightsearch.model.TicketRequest;
-import ru.otus.flightsearch.service.BotBuyerService;
-import ru.otus.flightsearch.service.BotSearchService;
-import ru.otus.flightsearch.service.BotServiceAirports;
-import ru.otus.flightsearch.service.BotServiceCountries;
+import ru.otus.flightsearch.service.*;
 
 import java.text.ParseException;
 import java.util.List;
@@ -30,7 +29,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FlightSearcherBot extends TelegramLongPollingBot {
     private final BotConfig config;
-    private final BotSearchService botSearchService;
+    private final BotServiceTravelPayout botServiceTravelPayout;
 
     private final BotServiceCountries botServiceCountries;
     private final BotServiceAirports botServiceAirports;
@@ -143,18 +142,26 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
             throw new RuntimeException(e);
         }
 
-
         long chatId = update.getMessage().getChatId();
+
         try {
+            SearchResultDtoList dtoTicketList = botServiceTravelPayout
+                    .getDtoTicketList(
+                            TickerRequestToSearchRequestDtoConverter
+                                    .convert(ticketRequest));
             sendMessage(chatId,
                     objectMapper.
-                            writeValueAsString(
-                                    botSearchService
-                                            .getDtoTicketList(
-                                                    TickerRequestToSearchRequestDtoConverter
-                                                            .convert(ticketRequest))));
+                            writeValueAsString(dtoTicketList));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+        } catch (WrongCityDataException e) {
+            e.printStackTrace();
+            sendMessage(chatId,
+                    "Wrong incoming Citydata or date");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            sendMessage(chatId,
+                    "ololo");
         }
     }
 

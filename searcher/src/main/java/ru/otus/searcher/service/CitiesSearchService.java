@@ -19,7 +19,9 @@ public class CitiesSearchService {
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
-                .setPath(travelPayoutProperties.getCitiesPath());
+                .setPath(travelPayoutProperties.getCitiesPath())
+                .addParameter(travelPayoutProperties.getLocaleKey(), travelPayoutProperties.getLocaleValue())
+        ;
     }
 
     public List<CityDto> getCities() {

@@ -19,7 +19,9 @@ public class CountrySearchService {
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
-                .setPath(travelPayoutProperties.getCountriesPath());
+                .setPath(travelPayoutProperties.getCountriesPath())
+                .addParameter(travelPayoutProperties.getLocaleKey(), travelPayoutProperties.getLocaleValue())
+        ;
     }
 
     public List<CountryDto> getCountry() {
