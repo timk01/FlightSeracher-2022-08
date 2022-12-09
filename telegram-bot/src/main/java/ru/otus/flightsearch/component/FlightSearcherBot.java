@@ -17,6 +17,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.otus.flightsearch.configuration.BotConfig;
 import ru.otus.flightsearch.converter.TickerRequestToSearchRequestDtoConverter;
+import ru.otus.flightsearch.exception.WrongCityDataException;
 import ru.otus.flightsearch.model.TicketRequest;
 import ru.otus.flightsearch.service.*;
 
@@ -148,17 +149,19 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
                     .getDtoTicketList(
                             TickerRequestToSearchRequestDtoConverter
                                     .convert(ticketRequest));
-            if (!dtoTicketList.getSearchResultDtoList().isEmpty()) {
-                sendMessage(chatId,
-                        objectMapper.
-                                writeValueAsString(dtoTicketList));
-            } else {
-                sendMessage(chatId,
-                        "wrong incoming data");
-            }
-
+            sendMessage(chatId,
+                    objectMapper.
+                            writeValueAsString(dtoTicketList));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+        } catch (WrongCityDataException e) {
+            e.printStackTrace();
+            sendMessage(chatId,
+                    "Wrong incoming Citydata or date");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            sendMessage(chatId,
+                    "ololo");
         }
     }
 

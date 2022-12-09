@@ -22,6 +22,8 @@ public class SearchController {
         return ticketListService.getDtoTicketList(dto);
     }
 
+    //localhost:8082/api/tickets > <
+
     @ExceptionHandler(WrongCityDataException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     public ResponseEntity<String> handleNoSuchElementFoundException(

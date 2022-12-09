@@ -7,9 +7,12 @@ import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.DefaultResponseErrorHandler;
 import org.springframework.web.client.RestTemplate;
 import ru.otus.flightsearch.configuration.BotServiceProperties;
+import ru.otus.flightsearch.exception.WrongCityDataException;
 
 @Service
 @Slf4j
@@ -21,30 +24,27 @@ public class BotServiceTravelPayout {
     @Autowired
     public BotServiceTravelPayout(RestTemplateBuilder restTemplateBuilder, BotServiceProperties botServiceProperties) {
         this.restTemplate = restTemplateBuilder
-                .errorHandler(new RestTemplateResponseErrorHandler())
+                .errorHandler(new MockErrorHandler())
                 .build();
+
         this.builder = new URIBuilder()
                 .setScheme("http")
                 .setHost(botServiceProperties.getTravelPayoutDataHost())
                 .setPath(botServiceProperties.getTicketsPath());
     }
 
-    public SearchResultDtoList getDtoTicketList(SearchRequestDto dto) {
-        HttpStatus statusCode = restTemplate
-                .postForEntity(builder.toString(), dto, SearchResultDtoList.class).getStatusCode();
-        /*ResponseEntity<SearchResultDtoList> searchResultDtoListResponseEntity = restTemplate
-                .postForEntity(builder.toString(), dto, SearchResultDtoList.class);*/
-        SearchResultDtoList searchResultDtoList = new SearchResultDtoList();
-        if (statusCode.equals(HttpStatus.BAD_REQUEST)) {
-            return searchResultDtoList;
+    public SearchResultDtoList getDtoTicketList(SearchRequestDto requestDto) {
+        ResponseEntity<String> entity = restTemplate.postForEntity(builder.toString(), requestDto, String.class);
+        SearchResultDtoList searchResultDtoList;
+        if (HttpStatus.BAD_REQUEST == entity.getStatusCode()) {
+            throw new WrongCityDataException("Cannot get data due to wrong city name");
         }
-        else if (statusCode.equals(HttpStatus.OK)){
-            searchResultDtoList = restTemplate
-                    .postForEntity(builder.toString(), dto, SearchResultDtoList.class).getBody();
-            if (searchResultDtoList != null) {
-                log.info("body: {}", searchResultDtoList.toString());
-            }
+        searchResultDtoList = restTemplate
+                .postForEntity(builder.toString(), requestDto, SearchResultDtoList.class).getBody();
+        if (searchResultDtoList != null) {
+            log.info("body: {}", searchResultDtoList.toString());
         }
         return searchResultDtoList;
     }
 }
+

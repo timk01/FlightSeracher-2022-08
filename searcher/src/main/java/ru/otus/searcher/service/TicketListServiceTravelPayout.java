@@ -5,6 +5,7 @@ import dto.SearchResultDtoList;
 import org.apache.http.client.utils.URIBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -50,7 +51,7 @@ public class TicketListServiceTravelPayout implements TicketListService {
         Optional<City> originCity = cityRepository.findCityByName(dto.getOrigin());
         Optional<City> destinationCity = cityRepository.findCityByName(dto.getDestination());
         if (!(originCity.isPresent() && destinationCity.isPresent())) {
-            throw new WrongCityDataException("Wrong destination or origin!");
+            throw new WrongCityDataException("Cannot find such CityName in DB");
         }
         String builderString = builder
                 .setParameter("origin", /*"mo3"*/originCity.get().getCode())
@@ -61,8 +62,10 @@ public class TicketListServiceTravelPayout implements TicketListService {
                         builderString,
                         TicketSearchResult.class
                 );
-
-        response.getStatusCode();
+/*
+        if (response)) { //check exception from TPO
+            throw new WrongCityDataException("Wrong destination or origin!");
+        }*/
 
         return converter
                 .convert(Objects
