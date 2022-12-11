@@ -14,5 +14,7 @@ public class TravelPayoutProperties {
     private String countriesPath;
     private String citiesPath;
     private String airportsPath;
+    private String localeKey;
+    private String localeValue;
 }
 

@@ -1,11 +1,8 @@
 package ru.otus.searcher.entity;
 
-
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.Immutable;
 
 import javax.persistence.*;
 import java.util.List;
@@ -23,7 +20,7 @@ public class City {
 
     @ManyToOne(fetch = FetchType.LAZY)
 
-    @JoinColumn(name =  "country_code")
+    @JoinColumn(name = "country_code")
     private Country country;
 
     @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)

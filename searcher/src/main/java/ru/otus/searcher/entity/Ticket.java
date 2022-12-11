@@ -6,7 +6,6 @@ import lombok.experimental.Accessors;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
-import java.util.Date;
 
 @Entity
 @Getter
@@ -27,10 +26,10 @@ public class Ticket {
     private Long duration;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name =  "origin")
+    @JoinColumn(name = "origin")
     private City cityOrigin;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name =  "destination")
+    @JoinColumn(name = "destination")
     private City cityDestination;
 }

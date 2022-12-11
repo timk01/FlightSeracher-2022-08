@@ -5,6 +5,8 @@ travelpayout:
   countries-path: "/aviasales_resources/v3/countries.json"
   cities-path: "/aviasales_resources/v3/cities.json"
   airports-path: "/aviasales_resources/v3/airports.json"
+  locale-key: "locale"
+  locale-value: "ru"
 
 spring:
   sql:
@@ -25,3 +27,5 @@ spring:
       ddl-auto: validate
   flyway:
     enabled: true
+server:
+  port: 8082

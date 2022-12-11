@@ -20,9 +20,10 @@ public class AirportsSearchService {
         this.builder = new URIBuilder()
                 .setScheme("https")
                 .setHost(travelPayoutProperties.getUrl())
-                .setPath(travelPayoutProperties.getAirportsPath());
+                .setPath(travelPayoutProperties.getAirportsPath())
+                .addParameter(travelPayoutProperties.getLocaleKey(), travelPayoutProperties.getLocaleValue())
+        ;
     }
-
 
     public List<AirportDto> getAirports() {
         @NonNull
@@ -30,7 +31,7 @@ public class AirportsSearchService {
         List<AirportDto> listOfAirports = List.of(responseArray);
 
         return listOfAirports.stream()
-                .filter(i->(i.isFlightable() && i.getIataType().equals("airport")))
+                .filter(i -> (i.isFlightable() && i.getIataType().equals("airport")))
                 .collect(Collectors.toList());
     }
 }

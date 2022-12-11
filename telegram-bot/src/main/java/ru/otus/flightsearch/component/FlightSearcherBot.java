@@ -2,22 +2,24 @@ package ru.otus.flightsearch.component;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import dto.AirportDto;
-import dto.CountryDto;
 import com.google.common.collect.Lists;
+import dto.AirportDto;
+import dto.BuyerRecord;
+import dto.CountryDto;
+import dto.SearchResultDtoList;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.otus.flightsearch.configuration.BotConfig;
 import ru.otus.flightsearch.converter.TickerRequestToSearchRequestDtoConverter;
+import ru.otus.flightsearch.exception.WrongCityDataException;
 import ru.otus.flightsearch.model.TicketRequest;
-import ru.otus.flightsearch.service.BotSearchService;
-import ru.otus.flightsearch.service.BotServiceAirports;
-import ru.otus.flightsearch.service.BotServiceCountries;
+import ru.otus.flightsearch.service.*;
 
 import java.text.ParseException;
 import java.util.List;
@@ -27,10 +29,11 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FlightSearcherBot extends TelegramLongPollingBot {
     private final BotConfig config;
-    private final BotSearchService botSearchService;
+    private final BotServiceTravelPayout botServiceTravelPayout;
 
     private final BotServiceCountries botServiceCountries;
     private final BotServiceAirports botServiceAirports;
+    private final BotBuyerService botBuyerService;
     private final ObjectMapper objectMapper;
 
     private static final String SHOW_COUNTRIES = "покажи список стран";
@@ -41,11 +44,17 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
 
-
         if (update.hasMessage() && update.getMessage().hasText()) {
-            String inputMessage = update.getMessage().getText();
+            Message message = update.getMessage();
+            String inputMessage = message.getText();
 
             if (inputMessage.startsWith(SHOW_TICKETS)) {
+                botBuyerService.postBuyerInfo(
+                        new BuyerRecord(message.getChatId(),
+                                message.getFrom().getFirstName(),
+                                message.getFrom().getIsBot(),
+                                message.getFrom().getLastName(),
+                                message.getFrom().getLastName()));
                 processTicketRequest(update);
             } else if (inputMessage.equals(SHOW_COUNTRIES)) {
                 processCountryRequest(update);
@@ -133,18 +142,26 @@ public class FlightSearcherBot extends TelegramLongPollingBot {
             throw new RuntimeException(e);
         }
 
-
         long chatId = update.getMessage().getChatId();
+
         try {
+            SearchResultDtoList dtoTicketList = botServiceTravelPayout
+                    .getDtoTicketList(
+                            TickerRequestToSearchRequestDtoConverter
+                                    .convert(ticketRequest));
             sendMessage(chatId,
                     objectMapper.
-                            writeValueAsString(
-                                    botSearchService
-                                            .getDtoTicketList(
-                                                    TickerRequestToSearchRequestDtoConverter
-                                                            .convert(ticketRequest))));
+                            writeValueAsString(dtoTicketList));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+        } catch (WrongCityDataException e) {
+            e.printStackTrace();
+            sendMessage(chatId,
+                    "Wrong incoming Citydata or date");
+        } catch (RuntimeException e) {
+            e.printStackTrace();
+            sendMessage(chatId,
+                    "ololo");
         }
     }
 
